@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vista VPN — Свобода в сети</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky1: #a8d8f0;
+  --teal: #00b4d8;
+  --teal2: #48cae4;
+  --green: #52b788;
+  --blue: #0077b6;
+  --blue2: #023e8a;
+  --glass: rgba(255,255,255,0.38);
+  --glass-border: rgba(255,255,255,0.75);
+  --text-dark: #0a1628;
+  --text-mid: #1a3a5c;
+  --text-soft: #4a7a9b;
+  --shadow: rgba(0,100,180,0.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Nunito',sans-serif; background:#b8def5; color:var(--text-dark); overflow-x:hidden; }
+
+/* CURSOR */
+.cursor { width:12px; height:12px; background:white; border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); box-shadow:0 0 10px rgba(0,180,216,0.9),0 0 22px rgba(0,180,216,0.4); transition:transform 0.15s; }
+.cursor-ring { width:32px; height:32px; border:1.5px solid rgba(255,255,255,0.75); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:all 0.1s; }
+
+/* PAGE BACKGROUND */
+.page-bg { position:fixed; inset:0; z-index:-2;
+  background: radial-gradient(ellipse 80% 60% at 15% 5%, #cceeff 0%, transparent 55%),
+              radial-gradient(ellipse 60% 70% at 85% 0%, #d8f4ff 0%, transparent 55%),
+              radial-gradient(ellipse 90% 60% at 50% 100%, #a0ccdf 0%, transparent 55%),
+              linear-gradient(175deg, #c8eaf8 0%, #a4cee0 35%, #82b8d0 65%, #60a2be 100%);
+}
+/* bokeh */
+.bk { position:fixed; border-radius:50%; pointer-events:none; z-index:-1; }
+.bk1 { width:450px; height:450px; top:-120px; left:-150px; background:radial-gradient(circle,rgba(255,255,255,0.38) 0%,transparent 70%); animation:bf 14s ease-in-out infinite; }
+.bk2 { width:320px; height:320px; top:25%; right:-80px; background:radial-gradient(circle,rgba(0,210,240,0.18) 0%,transparent 70%); animation:bf 10s ease-in-out infinite 2s reverse; }
+.bk3 { width:520px; height:280px; bottom:5%; left:15%; background:radial-gradient(circle,rgba(255,255,255,0.22) 0%,transparent 70%); animation:bf 17s ease-in-out infinite 1s; }
+.bk4 { width:200px; height:200px; top:55%; right:25%; background:radial-gradient(circle,rgba(80,210,180,0.18) 0%,transparent 70%); animation:bf 12s ease-in-out infinite 3s; }
+@keyframes bf { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(25px,-35px) scale(1.06)} 66%{transform:translate(-18px,22px) scale(0.96)} }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:12px 48px;
+  background:rgba(255,255,255,0.42); backdrop-filter:blur(24px) saturate(200%);
+  border-bottom:1px solid rgba(255,255,255,0.8);
+  box-shadow:0 2px 20px rgba(0,100,180,0.1),inset 0 1px 0 rgba(255,255,255,0.95);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
+.logo-gem { width:38px; height:38px; border-radius:10px;
+  background:linear-gradient(145deg,#5dd4f4 0%,#00a8cc 45%,#0077a8 100%);
+  border:1.5px solid rgba(255,255,255,0.85);
+  box-shadow:0 4px 14px rgba(0,120,180,0.42),inset 0 1.5px 0 rgba(255,255,255,0.65);
+  display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+}
+.logo-gem::after { content:''; position:absolute; top:2px; left:5px; right:8px; height:38%; background:rgba(255,255,255,0.42); border-radius:50%; filter:blur(2px); }
+.logo-gem svg { width:20px; height:20px; fill:white; position:relative; z-index:1; }
+.logo-text { font-size:20px; font-weight:900; letter-spacing:-0.3px; color:var(--text-dark); }
+.logo-text em { font-style:normal; color:var(--blue); }
+.nav-links { display:flex; gap:28px; align-items:center; }
+.nav-links a { color:var(--text-mid); text-decoration:none; font-size:14px; font-weight:700; transition:color 0.2s; }
+.nav-links a:hover { color:var(--blue); }
+.nav-btn { padding:9px 22px; border-radius:20px; border:none;
+  background:linear-gradient(180deg,rgba(255,255,255,0.95) 0%,rgba(210,240,255,0.85) 100%);
+  border:1.5px solid rgba(255,255,255,0.95); box-shadow:0 2px 8px rgba(0,100,180,0.18),inset 0 1px 0 white;
+  color:var(--blue); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800;
+  cursor:none; transition:all 0.2s;
+}
+.nav-btn:hover { transform:translateY(-1px); box-shadow:0 4px 16px rgba(0,100,180,0.28),inset 0 1px 0 white; }
+
+/* HERO */
+.hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:120px 48px 80px; position:relative; overflow:hidden; }
+/* aero glass orbs */
+.ho { position:absolute; border-radius:50%; pointer-events:none; }
+.ho1 { width:340px; height:340px; right:7%; top:12%;
+  background:radial-gradient(circle at 33% 28%, rgba(255,255,255,0.88) 0%,rgba(140,225,255,0.55) 35%,rgba(0,160,220,0.28) 65%,transparent 100%);
+  border:1px solid rgba(255,255,255,0.65); box-shadow:0 24px 64px rgba(0,120,200,0.22),inset 0 -20px 40px rgba(0,100,180,0.12);
+  animation:orb 9s ease-in-out infinite;
+}
+.ho2 { width:190px; height:190px; right:16%; top:58%;
+  background:radial-gradient(circle at 33% 28%, rgba(255,255,255,0.92) 0%,rgba(110,240,200,0.48) 42%,rgba(0,180,150,0.2) 70%,transparent 100%);
+  border:1px solid rgba(255,255,255,0.72); box-shadow:0 12px 32px rgba(0,160,130,0.2);
+  animation:orb 7s ease-in-out infinite 1.5s;
+}
+.ho3 { width:85px; height:85px; right:11%; top:74%;
+  background:radial-gradient(circle at 33% 28%, rgba(255,255,255,0.97) 0%,rgba(190,245,255,0.55) 50%,transparent 100%);
+  border:1px solid rgba(255,255,255,0.82); animation:orb 5.5s ease-in-out infinite 3s;
+}
+@keyframes orb { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(4deg)} }
+
+.hero-content { position:relative; z-index:2; max-width:630px; }
+.hero-pill { display:inline-flex; align-items:center; gap:9px;
+  background:rgba(255,255,255,0.58); border:1.5px solid rgba(255,255,255,0.85);
+  backdrop-filter:blur(12px); padding:6px 18px 6px 8px; border-radius:100px;
+  font-size:12px; font-weight:800; color:var(--blue); margin-bottom:28px; letter-spacing:0.3px;
+  box-shadow:0 2px 12px rgba(0,100,180,0.12),inset 0 1px 0 white;
+  animation:fu 0.7s ease both;
+}
+.pdot { width:26px; height:26px; border-radius:50%;
+  background:linear-gradient(135deg,#5ce89a,#00c48a); border:2px solid white;
+  box-shadow:0 2px 7px rgba(0,165,120,0.42); display:flex; align-items:center; justify-content:center; font-size:12px;
+}
+.hero h1 { font-size:clamp(50px,7.5vw,86px); font-weight:900; line-height:1; letter-spacing:-2px; color:var(--text-dark); animation:fu 0.7s ease 0.1s both; text-shadow:0 2px 20px rgba(0,80,140,0.12); }
+.hero h1 .grad { background:linear-gradient(135deg,#0077b6,#00b4d8,#48cae4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; }
+.hero-sub { font-size:17px; color:var(--text-mid); margin-top:20px; line-height:1.7; font-weight:600; max-width:490px; animation:fu 0.7s ease 0.2s both; }
+.hero-actions { display:flex; gap:14px; margin-top:36px; animation:fu 0.7s ease 0.3s both; }
+
+.btn-p { padding:15px 34px; border-radius:26px; border:none;
+  background:linear-gradient(180deg,#1ab8e8 0%,#008ec4 50%,#006ea4 100%);
+  border-top:1.5px solid rgba(255,255,255,0.62);
+  box-shadow:0 7px 22px rgba(0,120,180,0.46),inset 0 1.5px 0 rgba(255,255,255,0.52),inset 0 -2px 4px rgba(0,0,0,0.12);
+  color:white; font-family:'Nunito',sans-serif; font-size:15px; font-weight:800;
+  cursor:none; transition:all 0.22s; text-decoration:none; display:inline-block; position:relative; overflow:hidden;
+}
+.btn-p::after { content:''; position:absolute; top:3px; left:12%; right:12%; height:38%; background:rgba(255,255,255,0.32); border-radius:50%; filter:blur(4px); pointer-events:none; }
+.btn-p:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,120,180,0.52),inset 0 1.5px 0 rgba(255,255,255,0.52); }
+
+.btn-g { padding:15px 34px; border-radius:26px;
+  background:rgba(255,255,255,0.52); border:1.5px solid rgba(255,255,255,0.88);
+  backdrop-filter:blur(12px); box-shadow:0 4px 14px rgba(0,80,150,0.1),inset 0 1px 0 white;
+  color:var(--text-mid); font-family:'Nunito',sans-serif; font-size:15px; font-weight:800;
+  cursor:none; transition:all 0.22s; text-decoration:none; display:inline-block;
+}
+.btn-g:hover { background:rgba(255,255,255,0.72); transform:translateY(-2px); }
+@keyframes fu { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+
+/* Hero stats */
+.hero-stats { display:flex; gap:0; margin-top:52px; max-width:460px;
+  background:rgba(255,255,255,0.42); border:1.5px solid rgba(255,255,255,0.8);
+  backdrop-filter:blur(20px); border-radius:20px;
+  box-shadow:0 8px 24px rgba(0,80,150,0.1),inset 0 1.5px 0 white;
+  overflow:hidden; animation:fu 0.7s ease 0.4s both;
+}
+.hs { flex:1; padding:20px 22px; text-align:center; position:relative; }
+.hs+.hs::before { content:''; position:absolute; left:0; top:18%; bottom:18%; width:1px; background:rgba(255,255,255,0.75); }
+.hs-n { font-size:27px; font-weight:900; color:var(--blue); letter-spacing:-1px; }
+.hs-l { font-size:10px; font-weight:800; color:var(--text-soft); margin-top:2px; letter-spacing:0.8px; text-transform:uppercase; }
+
+/* SECTIONS */
+section { padding:90px 48px; }
+.eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--blue); margin-bottom:14px; }
+.el { width:22px; height:2px; background:linear-gradient(90deg,var(--blue),var(--teal)); border-radius:2px; }
+.sec-title { font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-1.5px; color:var(--text-dark); }
+.sec-title em { font-style:normal; background:linear-gradient(135deg,#0077b6,#00b4d8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+/* FEATURES */
+.feat-sec { background:rgba(255,255,255,0.18); backdrop-filter:blur(8px); }
+.fg { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:48px; }
+.fc {
+  background:rgba(255,255,255,0.48); backdrop-filter:blur(22px) saturate(160%);
+  border:1.5px solid rgba(255,255,255,0.82); border-radius:20px; padding:30px;
+  box-shadow:0 6px 24px rgba(0,80,150,0.1),inset 0 1.5px 0 rgba(255,255,255,0.92),inset 0 -1px 0 rgba(255,255,255,0.42);
+  transition:all 0.3s; position:relative; overflow:hidden;
+}
+.fc::before { content:''; position:absolute; top:0; left:18%; right:18%; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent); }
+.fc:hover { transform:translateY(-5px); box-shadow:0 16px 44px rgba(0,80,150,0.17),inset 0 1.5px 0 white; background:rgba(255,255,255,0.62); }
+.fg-icon { width:52px; height:52px; border-radius:14px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; font-size:24px; position:relative; overflow:hidden; }
+.fg-icon::after { content:''; position:absolute; top:2px; left:6px; right:7px; height:34%; background:rgba(255,255,255,0.45); border-radius:50%; filter:blur(3px); }
+.i-teal { background:linear-gradient(145deg,#82eefb,#2ac8e0,#009ec0); border:1.5px solid rgba(255,255,255,0.75); box-shadow:0 4px 14px rgba(0,160,200,0.4),inset 0 1px 0 rgba(255,255,255,0.6); }
+.i-green { background:linear-gradient(145deg,#a8e8c0,#52cc8a,#28aa6a); border:1.5px solid rgba(255,255,255,0.75); box-shadow:0 4px 14px rgba(0,160,100,0.32),inset 0 1px 0 rgba(255,255,255,0.6); }
+.i-sky { background:linear-gradient(145deg,#bcecff,#62ccf4,#1ca8e2); border:1.5px solid rgba(255,255,255,0.75); box-shadow:0 4px 14px rgba(0,140,200,0.32),inset 0 1px 0 rgba(255,255,255,0.6); }
+.ft { font-size:17px; font-weight:800; color:var(--text-dark); margin-bottom:8px; }
+.fd { font-size:13px; color:var(--text-soft); line-height:1.7; font-weight:600; }
+
+/* PRICING */
+.pr-sec { background:rgba(255,255,255,0.14); backdrop-filter:blur(6px); }
+.pr-center { display:flex; justify-content:center; margin-top:52px; }
+.plan-card {
+  background:rgba(255,255,255,0.58); backdrop-filter:blur(30px) saturate(185%);
+  border:2px solid rgba(255,255,255,0.92); border-radius:28px; padding:44px 50px;
+  box-shadow:0 22px 64px rgba(0,80,160,0.14),inset 0 2px 0 rgba(255,255,255,0.96),inset 0 -2px 0 rgba(200,232,255,0.4);
+  max-width:400px; width:100%; position:relative; overflow:hidden;
+}
+.plan-card::before { content:''; position:absolute; top:0; left:12%; right:12%; height:2px; background:linear-gradient(90deg,transparent,white,transparent); }
+.plan-card::after { content:''; position:absolute; top:-70px; right:-70px; width:180px; height:180px; background:radial-gradient(circle,rgba(255,255,255,0.6) 0%,transparent 70%); border-radius:50%; pointer-events:none; }
+.badge-wrap { display:flex; justify-content:center; margin-bottom:24px; }
+.plan-badge {
+  background:linear-gradient(145deg,#5ae8a0,#00cc8a,#009968); border:2px solid rgba(255,255,255,0.82);
+  box-shadow:0 4px 16px rgba(0,160,120,0.4),inset 0 1px 0 rgba(255,255,255,0.52);
+  color:white; font-size:11px; font-weight:900; letter-spacing:2px; text-transform:uppercase;
+  padding:6px 22px; border-radius:100px; position:relative; overflow:hidden;
+}
+.plan-badge::after { content:''; position:absolute; top:1px; left:14%; right:14%; height:38%; background:rgba(255,255,255,0.32); border-radius:50%; filter:blur(2px); }
+.pn { text-align:center; font-size:13px; font-weight:800; color:var(--text-soft); letter-spacing:2px; text-transform:uppercase; }
+.pp { text-align:center; margin:12px 0 4px; }
+.pp .amt { font-size:76px; font-weight:900; letter-spacing:-4px; color:var(--blue); line-height:1; }
+.pp .cur { font-size:32px; font-weight:900; color:var(--blue); vertical-align:top; margin-top:14px; display:inline-block; }
+.pop { text-align:center; font-size:13px; color:var(--text-soft); font-weight:700; }
+.pop s { color:#e05252; }
+.pdiv { height:1px; background:linear-gradient(90deg,transparent,rgba(0,100,180,0.18),transparent); margin:24px 0; }
+.pfl { list-style:none; display:flex; flex-direction:column; gap:13px; }
+.pfl li { font-size:14px; font-weight:700; color:var(--text-mid); display:flex; align-items:center; gap:10px; }
+.cg { width:22px; height:22px; border-radius:6px; flex-shrink:0;
+  background:linear-gradient(145deg,#80eba0,#28cc70,#009950); border:1.5px solid rgba(255,255,255,0.72);
+  box-shadow:0 2px 6px rgba(0,150,100,0.36),inset 0 1px 0 rgba(255,255,255,0.52);
+  display:flex; align-items:center; justify-content:center; font-size:11px; color:white; position:relative; overflow:hidden;
+}
+.cg::after { content:''; position:absolute; top:1px; left:3px; right:3px; height:34%; background:rgba(255,255,255,0.42); border-radius:50%; filter:blur(1px); }
+.btn-pay {
+  display:block; width:100%; margin-top:28px; padding:17px; border-radius:24px; border:none;
+  background:linear-gradient(180deg,#24c8f2 0%,#00acd8 48%,#008ab8 100%);
+  border-top:2px solid rgba(255,255,255,0.62);
+  box-shadow:0 8px 26px rgba(0,120,180,0.42),inset 0 1.5px 0 rgba(255,255,255,0.56),inset 0 -3px 6px rgba(0,0,0,0.1);
+  color:white; font-family:'Nunito',sans-serif; font-size:16px; font-weight:900;
+  cursor:none; transition:all 0.25s; text-align:center; position:relative; overflow:hidden;
+}
+.btn-pay::after { content:''; position:absolute; top:3px; left:14%; right:14%; height:38%; background:rgba(255,255,255,0.3); border-radius:50%; filter:blur(4px); pointer-events:none; }
+.btn-pay:hover { transform:translateY(-3px); box-shadow:0 16px 38px rgba(0,120,180,0.5),inset 0 1.5px 0 rgba(255,255,255,0.56); }
+
+/* CABINET */
+.cab-wrap { max-width:880px; margin:52px auto 0; }
+.win-bar {
+  background:linear-gradient(180deg,rgba(205,235,255,0.92) 0%,rgba(165,215,242,0.88) 100%);
+  border:1.5px solid rgba(255,255,255,0.88); border-bottom:none; border-radius:14px 14px 0 0;
+  padding:10px 16px; display:flex; align-items:center; gap:8px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.95);
+}
+.wb { width:13px; height:13px; border-radius:50%; border:1px solid rgba(0,0,0,0.12); }
+.wb.r { background:linear-gradient(135deg,#ff7070,#dd3a3a); }
+.wb.y { background:linear-gradient(135deg,#ffd060,#dda818); }
+.wb.g { background:linear-gradient(135deg,#62d072,#2aa040); }
+.wt { flex:1; text-align:center; font-size:12px; font-weight:700; color:var(--text-mid); letter-spacing:0.5px; }
+.wu { background:rgba(255,255,255,0.72); border:1px solid rgba(255,255,255,0.92); border-radius:6px; padding:3px 14px; font-size:11px; color:var(--text-soft); font-weight:700; }
+.win-body {
+  background:rgba(255,255,255,0.4); backdrop-filter:blur(26px) saturate(165%);
+  border:1.5px solid rgba(255,255,255,0.78); border-top:none; border-radius:0 0 20px 20px;
+  padding:36px; box-shadow:0 22px 54px rgba(0,80,150,0.12),inset 0 -1px 0 rgba(255,255,255,0.52);
+}
+.ch { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; }
+.cu { display:flex; align-items:center; gap:14px; }
+.cav {
+  width:50px; height:50px; border-radius:14px;
+  background:linear-gradient(145deg,#82ecfc,#00b8dc,#0079b0);
+  border:2px solid rgba(255,255,255,0.88);
+  box-shadow:0 4px 16px rgba(0,120,180,0.36),inset 0 1.5px 0 rgba(255,255,255,0.62);
+  display:flex; align-items:center; justify-content:center; font-size:21px; font-weight:900; color:white; position:relative; overflow:hidden;
+}
+.cav::after { content:''; position:absolute; top:2px; left:5px; right:5px; height:34%; background:rgba(255,255,255,0.42); border-radius:50%; filter:blur(2px); }
+.cn { font-size:17px; font-weight:900; color:var(--text-dark); }
+.ci { font-size:12px; color:var(--text-soft); font-weight:700; }
+.sp {
+  display:flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,0.56); border:1.5px solid rgba(255,255,255,0.88);
+  backdrop-filter:blur(10px); padding:8px 18px; border-radius:100px;
+  font-size:13px; font-weight:800; color:#009950;
+  box-shadow:0 2px 10px rgba(0,150,100,0.14),inset 0 1px 0 white;
+}
+.sled { width:9px; height:9px; background:#28d870; border-radius:50%; box-shadow:0 0 6px rgba(0,200,100,0.7); animation:led 2.2s ease-in-out infinite; }
+@keyframes led { 0%,100%{box-shadow:0 0 6px rgba(0,200,100,0.7)} 50%{box-shadow:0 0 14px rgba(0,200,100,1),0 0 22px rgba(0,200,100,0.4)} }
+.ccs { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px; }
+.cc { background:rgba(255,255,255,0.52); border:1.5px solid rgba(255,255,255,0.88); border-radius:16px; padding:20px; box-shadow:0 4px 14px rgba(0,80,150,0.08),inset 0 1px 0 rgba(255,255,255,0.94); }
+.cc-l { font-size:10px; font-weight:800; color:var(--text-soft); text-transform:uppercase; letter-spacing:1.5px; }
+.cc-v { font-size:22px; font-weight:900; color:var(--text-dark); margin-top:6px; }
+.cc-v.bl { color:var(--blue); }
+.cc-v.gr { color:#009950; }
+.cc-s { font-size:11px; color:var(--text-soft); font-weight:700; margin-top:3px; }
+.prg { margin-bottom:24px; }
+.prg-h { display:flex; justify-content:space-between; margin-bottom:10px; }
+.prg-l { font-size:13px; font-weight:800; color:var(--text-mid); }
+.prg-p { font-size:12px; font-weight:800; color:var(--blue); }
+.abar { height:10px; background:rgba(255,255,255,0.52); border:1px solid rgba(255,255,255,0.82); border-radius:100px; box-shadow:inset 0 2px 4px rgba(0,50,100,0.1); overflow:hidden; }
+.afill { height:100%; width:62%; border-radius:100px; background:linear-gradient(90deg,#28c8f2,#00d8a8,#28dc70); box-shadow:0 0 10px rgba(0,200,160,0.5); position:relative; overflow:hidden; }
+.afill::after { content:''; position:absolute; top:0; left:0; right:0; height:50%; background:rgba(255,255,255,0.42); border-radius:100px; }
+.prd { display:flex; justify-content:space-between; margin-top:7px; }
+.pd { font-size:11px; color:var(--text-soft); font-weight:700; }
+.cas { display:flex; gap:12px; }
+.cb { flex:1; padding:13px; border-radius:16px; border:none; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800; cursor:none; transition:all 0.2s; text-align:center; }
+.cb.p { background:linear-gradient(180deg,#1ccef2 0%,#009bcc 50%,#0079aa 100%); border-top:1.5px solid rgba(255,255,255,0.56); box-shadow:0 6px 18px rgba(0,120,180,0.36),inset 0 1px 0 rgba(255,255,255,0.52); color:white; position:relative; overflow:hidden; }
+.cb.p::after { content:''; position:absolute; top:2px; left:14%; right:14%; height:38%; background:rgba(255,255,255,0.3); border-radius:50%; filter:blur(3px); pointer-events:none; }
+.cb.gl { background:rgba(255,255,255,0.52); border:1.5px solid rgba(255,255,255,0.88); backdrop-filter:blur(10px); color:var(--text-mid); box-shadow:0 3px 10px rgba(0,80,150,0.08),inset 0 1px 0 white; }
+.cb:hover { transform:translateY(-2px); }
+
+/* FOOTER */
+footer { padding:36px 48px; background:rgba(255,255,255,0.32); backdrop-filter:blur(20px); border-top:1.5px solid rgba(255,255,255,0.72); box-shadow:inset 0 1px 0 rgba(255,255,255,0.55); display:flex; justify-content:space-between; align-items:center; }
+.fb { font-size:18px; font-weight:900; color:var(--text-dark); }
+.fb em { font-style:normal; color:var(--blue); }
+.fc2 { font-size:12px; color:var(--text-soft); font-weight:700; }
+
+/* MODALS */
+.mo { position:fixed; inset:0; z-index:500; background:rgba(120,185,225,0.38); backdrop-filter:blur(18px); display:none; align-items:center; justify-content:center; }
+.mo.active { display:flex; }
+.m { background:rgba(255,255,255,0.72); backdrop-filter:blur(34px) saturate(200%); border:2px solid rgba(255,255,255,0.94); border-radius:26px; padding:44px; width:100%; max-width:440px; box-shadow:0 32px 84px rgba(0,80,160,0.2),inset 0 2px 0 white,inset 0 -1px 0 rgba(200,232,255,0.5); position:relative; overflow:hidden; margin:20px; }
+.m::before { content:''; position:absolute; top:-90px; right:-90px; width:220px; height:220px; background:radial-gradient(circle,rgba(255,255,255,0.72) 0%,transparent 70%); border-radius:50%; pointer-events:none; }
+.mclose { position:absolute; top:16px; right:16px; width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#ffaaaa,#dd4444); border:1.5px solid rgba(255,255,255,0.72); box-shadow:0 2px 6px rgba(200,50,50,0.3); cursor:none; color:white; font-size:12px; font-weight:900; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.mclose:hover { transform:scale(1.12); }
+.mt { font-size:26px; font-weight:900; color:var(--text-dark); margin-bottom:6px; }
+.ms { font-size:13px; color:var(--text-soft); font-weight:600; margin-bottom:28px; }
+.fl { font-size:11px; font-weight:800; color:var(--text-soft); text-transform:uppercase; letter-spacing:1.5px; display:block; margin-bottom:7px; }
+.fi { width:100%; background:rgba(255,255,255,0.62); border:1.5px solid rgba(255,255,255,0.88); backdrop-filter:blur(8px); color:var(--text-dark); padding:12px 16px; border-radius:12px; font-family:'Nunito',sans-serif; font-size:15px; font-weight:700; transition:all 0.2s; outline:none; box-shadow:inset 0 2px 4px rgba(0,50,100,0.06); }
+.fi:focus { border-color:rgba(0,160,220,0.6); box-shadow:0 0 0 3px rgba(0,160,220,0.15),inset 0 2px 4px rgba(0,50,100,0.04); background:rgba(255,255,255,0.82); }
+.fg2 { margin-bottom:18px; }
+.tgbtn { width:100%; padding:14px; border-radius:16px; border:none;
+  background:linear-gradient(180deg,#40bcec 0%,#189acc 50%,#007aaa 100%);
+  border-top:1.5px solid rgba(255,255,255,0.52); box-shadow:0 6px 18px rgba(0,120,180,0.36),inset 0 1.5px 0 rgba(255,255,255,0.52);
+  color:white; font-family:'Nunito',sans-serif; font-size:15px; font-weight:900; cursor:none; transition:all 0.2s; margin-bottom:16px; position:relative; overflow:hidden;
+}
+.tgbtn::after { content:''; position:absolute; top:2px; left:14%; right:14%; height:38%; background:rgba(255,255,255,0.3); border-radius:50%; filter:blur(3px); }
+.tgbtn:hover { transform:translateY(-2px); }
+.ord { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.oll { flex:1; height:1px; background:rgba(0,100,180,0.14); }
+.ort { font-size:12px; font-weight:800; color:var(--text-soft); }
+.fbtn { width:100%; padding:14px; border-radius:16px; border:none;
+  background:linear-gradient(180deg,#1ccef2,#009bcc 50%,#0079aa);
+  border-top:1.5px solid rgba(255,255,255,0.56); box-shadow:0 6px 18px rgba(0,120,180,0.36),inset 0 1.5px 0 rgba(255,255,255,0.52);
+  color:white; font-family:'Nunito',sans-serif; font-size:15px; font-weight:900; cursor:none; transition:all 0.2s; margin-top:6px; position:relative; overflow:hidden;
+}
+.fbtn::after { content:''; position:absolute; top:2px; left:14%; right:14%; height:38%; background:rgba(255,255,255,0.3); border-radius:50%; filter:blur(3px); }
+.fbtn:hover { transform:translateY(-2px); }
+.fsw { text-align:center; margin-top:18px; font-size:13px; color:var(--text-soft); font-weight:700; }
+.fsw a { color:var(--blue); cursor:none; font-weight:800; }
+.pib { background:rgba(255,255,255,0.58); border:1.5px solid rgba(255,255,255,0.88); border-radius:16px; padding:18px 20px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; box-shadow:inset 0 1px 0 white; }
+.pibn { font-size:16px; font-weight:900; color:var(--text-dark); }
+.pibp { font-size:26px; font-weight:900; color:var(--blue); }
+.yknote { background:rgba(0,160,220,0.08); border:1.5px solid rgba(0,160,220,0.2); border-radius:12px; padding:12px 16px; margin-bottom:18px; font-size:12px; color:var(--text-soft); font-weight:700; display:flex; align-items:center; gap:8px; }
+
+/* Code input cells */
+.code-cell {
+  width:46px; height:56px; border-radius:14px; text-align:center;
+  font-size:24px; font-weight:900; color:var(--blue);
+  background:rgba(255,255,255,0.62); border:2px solid rgba(255,255,255,0.88);
+  backdrop-filter:blur(8px); outline:none; font-family:'Nunito',sans-serif;
+  box-shadow:inset 0 2px 6px rgba(0,50,100,0.08);
+  transition:all 0.18s; caret-color:transparent;
+}
+.code-cell:focus {
+  border-color:rgba(0,160,220,0.7);
+  box-shadow:0 0 0 3px rgba(0,160,220,0.18),inset 0 2px 4px rgba(0,50,100,0.04);
+  background:rgba(255,255,255,0.85); transform:scale(1.06);
+}
+.code-cell.filled { border-color:rgba(0,180,120,0.5); background:rgba(220,255,240,0.7); }
+.code-cell.error { border-color:rgba(220,60,60,0.6); background:rgba(255,220,220,0.6); animation:shake 0.4s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)} 60%{transform:translateX(5px)} }
+.verify-loading { opacity:0.6; pointer-events:none; }
+
+@media(max-width:768px) {
+  nav { padding:12px 20px; }
+  .nav-links { display:none; }
+  section { padding:60px 20px; }
+  .hero { padding:100px 20px 60px; }
+  .ho { display:none; }
+  .fg { grid-template-columns:1fr; }
+  .ccs { grid-template-columns:1fr; }
+  .cas { flex-direction:column; }
+  footer { flex-direction:column; gap:12px; text-align:center; }
+  .hero-stats { max-width:100%; }
+  .hero-actions { flex-direction:column; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="page-bg"></div>
+<div class="bk bk1"></div><div class="bk bk2"></div><div class="bk bk3"></div><div class="bk bk4"></div>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-gem">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="logo-text">Vista <em>VPN</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Возможности</a>
+    <a href="#pricing">Тариф</a>
+    <button class="nav-btn" onclick="openLogin()">Купить</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="ho ho1"></div>
+  <div class="ho ho2"></div>
+  <div class="ho ho3"></div>
+  <div class="hero-content">
+    <div class="hero-pill"><div class="pdot">🌿</div> Серверы онлайн · Нидерланды</div>
+    <h1>Свобода<br><span class="grad">в сети.</span></h1>
+    <p class="hero-sub">VPN нового поколения — чистый, быстрый, настоящий. Управляй прямо из Telegram.</p>
+    <div class="hero-actions">
+      <a href="https://t.me/viistavpn_bot" class="btn-p">✦ Открыть в Telegram</a>
+      <a href="#pricing" class="btn-g">Смотреть тариф</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">Стабильное подключение</div><div class="hs-l"></div></div>
+      <div class="hs"><div class="hs-n">NL</div><div class="hs-l">сервер</div></div>
+      <div class="hs"><div class="hs-n">Без рекламы</div><div class="hs-l"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="feat-sec">
+  <div class="eyebrow"><div class="el"></div> Возможности</div>
+  <h2 class="sec-title">Почему Vista <em>VPN</em></h2>
+  <div class="fg">
+    <div class="fc"><div class="fg-icon i-teal">🛡️</div><div class="ft">WireGuard протокол</div><div class="fd">Современное шифрование. Скорость и безопасность без компромиссов.</div></div>
+    <div class="fc"><div class="fg-icon i-green">⚡</div><div class="ft">Высокая скорость</div><div class="fd">Выделенный сервер в Нидерландах. Видео, работа — без задержек.</div></div>
+    <div class="fc"><div class="fg-icon i-sky">🤖</div><div class="ft">Управление в Telegram</div><div class="fd">Получите ключ подключения прямо в боте. Никаких лишних приложений.</div></div>
+    <div class="fc"><div class="fg-icon i-green">🌍</div><div class="ft">Стабильный сервер</div><div class="fd">Нидерланды — оптимальный сервер для любых задач. Стабильно 24/7.</div></div>
+    <div class="fc"><div class="fg-icon i-sky">📱</div><div class="ft">Все устройства</div><div class="fd">iOS, Android, Windows, macOS, Linux — до 3 устройств одновременно.</div></div>
+    <div class="fc"><div class="fg-icon i-teal">🔒</div><div class="ft">No-log политика</div><div class="fd">Мы не храним логи вашей активности. Полная анонимность гарантирована.</div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pr-sec">
+  <div style="text-align:center">
+    <div class="eyebrow" style="justify-content:center"><div class="el"></div> Тариф <div class="el"></div></div>
+    <h2 class="sec-title">Один план — <em>всё включено</em></h2>
+  </div>
+  <div class="pr-center">
+    <div class="plan-card">
+      <div class="badge-wrap"><div class="plan-badge">Скидка 30%</div></div>
+      <div class="pn">1 Месяц</div>
+      <div class="pp"><span class="cur">₽</span><span class="amt">70</span></div>
+      <div class="pop">Цена без скидки: <s>100₽</s></div>
+      <div class="pdiv"></div>
+      <ul class="pfl">
+        <li><div class="cg">✓</div> 3 устройства одновременно</li>
+        <li><div class="cg">✓</div> WireGuard шифрование</li>
+        <li><div class="cg">✓</div> Сервер в Нидерландах</li>
+        <li><div class="cg">✓</div> Безлимитный трафик</li>
+        <li><div class="cg">✓</div> Поддержка 24/7</li>
+      </ul>
+      <button class="btn-pay" onclick="openPay('1 Месяц','70')">💳 Оплатить 70₽</button>
+    </div>
+  </div>
+</section>
+
+
+
+<footer>
+  <div class="fb">Vista <em>VPN</em></div>
+  <div class="fc2">© 2026 Vista VPN · Все права защищены</div>
+</footer>
+
+<!-- LOGIN MODAL -->
+<div class="mo" id="loginModal">
+  <div class="m" style="max-width:420px">
+    <button class="mclose" onclick="closeModals()">✕</button>
+
+    <!-- STEP 1: инструкция — идти в бота -->
+    <div id="auth-step1">
+      <div style="text-align:center;margin-bottom:28px">
+        <div style="width:60px;height:60px;border-radius:16px;background:linear-gradient(145deg,#82ecfc,#00b8dc,#0079b0);border:2px solid rgba(255,255,255,0.85);box-shadow:0 6px 20px rgba(0,120,180,0.38),inset 0 1.5px 0 rgba(255,255,255,0.62);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;position:relative;overflow:hidden">
+          <span style="position:relative;z-index:1">🔐</span>
+          <div style="position:absolute;top:2px;left:6px;right:6px;height:34%;background:rgba(255,255,255,0.42);border-radius:50%;filter:blur(3px)"></div>
+        </div>
+        <div class="mt" style="margin-bottom:6px">Оплатить через Telegram</div>
+        <div class="ms" style="margin-bottom:0"></div>
+      </div>
+
+      <!-- Шаги -->
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.52);border:1.5px solid rgba(255,255,255,0.85);border-radius:14px;padding:14px 16px;box-shadow:inset 0 1px 0 white">
+          <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#5ce8f8,#00b0d8,#007ab0);border:1.5px solid rgba(255,255,255,0.8);box-shadow:0 3px 10px rgba(0,120,180,0.35),inset 0 1px 0 rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:white;flex-shrink:0;position:relative;overflow:hidden">
+            <span style="position:relative;z-index:1">1</span>
+            <div style="position:absolute;top:1px;left:4px;right:4px;height:38%;background:rgba(255,255,255,0.38);border-radius:50%;filter:blur(1px)"></div>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:var(--text-mid)">Откройте бота <strong>@viistavpn_bot</strong></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.52);border:1.5px solid rgba(255,255,255,0.85);border-radius:14px;padding:14px 16px;box-shadow:inset 0 1px 0 white">
+          <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#5ce8f8,#00b0d8,#007ab0);border:1.5px solid rgba(255,255,255,0.8);box-shadow:0 3px 10px rgba(0,120,180,0.35),inset 0 1px 0 rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:white;flex-shrink:0;position:relative;overflow:hidden">
+            <span style="position:relative;z-index:1">2</span>
+            <div style="position:absolute;top:1px;left:4px;right:4px;height:38%;background:rgba(255,255,255,0.38);border-radius:50%;filter:blur(1px)"></div>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:var(--text-mid)">Нажмите кнопку <strong>купить</strong> в меню</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.52);border:1.5px solid rgba(255,255,255,0.85);border-radius:14px;padding:14px 16px;box-shadow:inset 0 1px 0 white">
+          <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#5ce8f8,#00b0d8,#007ab0);border:1.5px solid rgba(255,255,255,0.8);box-shadow:0 3px 10px rgba(0,120,180,0.35),inset 0 1px 0 rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:white;flex-shrink:0;position:relative;overflow:hidden">
+            <span style="position:relative;z-index:1">3</span>
+            <div style="position:absolute;top:1px;left:4px;right:4px;height:38%;background:rgba(255,255,255,0.38);border-radius:50%;filter:blur(1px)"></div>
+          </div>
+          <div style="font-size:13px;font-weight:700;color:var(--text-mid)">После успешной оплаты бот вышлет вам инструкцию для подключения</div>
+        </div>
+      </div>
+
+      <a href="https://t.me/viistavpn_bot?start=login" target="_blank" class="tgbtn" style="display:block;text-align:center;text-decoration:none;margin-bottom:16px">
+        ✈️ Открыть @viistavpn_bot
+      </a>
+      
+
+    <!-- STEP 2: ввод кода -->
+    <div id="auth-step2" style="display:none">
+      <div style="text-align:center;margin-bottom:28px">
+        <div style="font-size:44px;margin-bottom:14px">🔑</div>
+        <div class="mt" style="margin-bottom:6px">Введите код</div>
+        <div class="ms" style="margin-bottom:0">Код из бота действует 5 минут</div>
+      </div>
+
+      <!-- Поля ввода кода — 6 ячеек -->
+      <div id="code-inputs" style="display:flex;gap:8px;justify-content:center;margin-bottom:10px">
+        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+      </div>
+      <div id="code-error" style="text-align:center;font-size:12px;color:#e05252;font-weight:700;min-height:20px;margin-bottom:12px"></div>
+
+      <button class="fbtn" id="verify-btn" onclick="verifyCode()">Купить →</button>
+      <div class="fsw" style="margin-top:14px"><a onclick="goToStep1()">← Назад</a> · <a onclick="goToStep1()" style="color:var(--text-soft)">Получить новый код</a></div>
+    </div>
+
+    <!-- STEP 3: успех -->
+    <div id="auth-step3" style="display:none;text-align:center;padding:16px 0">
+      <div style="font-size:52px;margin-bottom:16px">🌊</div>
+      <div class="mt" style="margin-bottom:8px">Добро пожаловать!</div>
+      <div class="ms" style="margin-bottom:28px" id="success-msg">Вы успешно вошли в Vista VPN</div>
+      <button class="fbtn" onclick="goToCabinet()">Перейти в кабинет →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAY MODAL -->
+<div class="mo" id="payModal">
+  <div class="m">
+    <button class="mclose" onclick="closeModals()">✕</button>
+    <div class="mt">Оплата</div>
+    <div class="ms">Безопасная оплата через ЮKassa</div>
+    <div class="pib">
+      <div><div class="cc-l" style="margin-bottom:4px">Тариф</div><div class="pibn" id="ppn">1 Месяц</div></div>
+      <div class="pibp" id="ppp">70₽</div>
+    </div>
+    <div class="yknote">🔒 Оплата защищена ЮKassa. Данные карты не передаются третьим лицам.</div>
+    <div class="fg2"><label class="fl">Email для чека</label><input type="email" class="fi" placeholder="you@example.com"></div>
+    <button class="fbtn" onclick="alert('Подключите shopId и secretKey ЮKassa в бэкенде')">Перейти к оплате →</button>
+    <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--text-soft);font-weight:700">Visa · Mastercard · МИР · СБП</div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  НАСТРОЙКИ — заменить перед деплоем
+// ═══════════════════════════════════════════════
+const CONFIG = {
+  BOT_USERNAME: 'vistavpn_bot',
+  // URL вашего бота-бэкенда (когда запустите бота с Flask/FastAPI)
+  // Пока бота нет локально — используется демо-режим
+  API_URL: 'http://localhost:5000',
+  DEMO_MODE: true, // ← поставить false когда бот запущен
+};
+// ═══════════════════════════════════════════════
+
+// ---------- Cursor ----------
+const cur = document.getElementById('cursor'), ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function loop(){ rx+=(mx-rx)*0.1; ry+=(my-ry)*0.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+function bindCursor(){
+  document.querySelectorAll('button,a,.code-cell').forEach(el => {
+    if(el._cursorBound) return; el._cursorBound=true;
+    el.addEventListener('mouseenter', () => { cur.style.transform='translate(-50%,-50%) scale(2.2)'; ring.style.transform='translate(-50%,-50%) scale(0.5)'; });
+    el.addEventListener('mouseleave', () => { cur.style.transform='translate(-50%,-50%) scale(1)'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
+  });
+}
+bindCursor();
+
+// ---------- Session ----------
+let currentUser = JSON.parse(localStorage.getItem('vista_user') || 'null');
+if(currentUser) updateNav(currentUser);
+
+function saveUser(u){ currentUser=u; localStorage.setItem('vista_user', JSON.stringify(u)); }
+function clearUser(){ currentUser=null; localStorage.removeItem('vista_user'); }
+
+// ---------- Modals ----------
+function openLogin(){
+  goToStep1();
+  document.getElementById('loginModal').classList.add('active');
+  setTimeout(bindCursor, 50);
+}
+function openPay(plan, price){
+  if(!currentUser){ openLogin(); return; }
+  document.getElementById('ppn').textContent = plan;
+  document.getElementById('ppp').textContent = price+'₽';
+  document.getElementById('payModal').classList.add('active');
+}
+function closeModals(){ document.querySelectorAll('.mo').forEach(m => m.classList.remove('active')); }
+document.querySelectorAll('.mo').forEach(o => o.addEventListener('click', e => { if(e.target===o) closeModals(); }));
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  const t = document.querySelector(a.getAttribute('href'));
+  if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+}));
+
+// ---------- Auth steps ----------
+function goToStep1(){
+  document.getElementById('auth-step1').style.display = '';
+  document.getElementById('auth-step2').style.display = 'none';
+  document.getElementById('auth-step3').style.display = 'none';
+  clearCodeCells();
+}
+function goToStep2(){
+  document.getElementById('auth-step1').style.display = 'none';
+  document.getElementById('auth-step2').style.display = '';
+  document.getElementById('auth-step3').style.display = 'none';
+  setTimeout(() => { document.querySelectorAll('.code-cell')[0]?.focus(); bindCursor(); }, 80);
+}
+function goToStep3(user){
+  document.getElementById('auth-step1').style.display = 'none';
+  document.getElementById('auth-step2').style.display = 'none';
+  document.getElementById('auth-step3').style.display = '';
+  document.getElementById('success-msg').textContent = 'Добро пожаловать, ' + user.name + '!';
+}
+
+// ---------- Code cells logic ----------
+function clearCodeCells(){
+  document.querySelectorAll('.code-cell').forEach(c => {
+    c.value=''; c.classList.remove('filled','error');
+  });
+  document.getElementById('code-error').textContent = '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const cells = document.querySelectorAll('.code-cell');
+  cells.forEach((cell, i) => {
+    cell.addEventListener('input', e => {
+      // Разрешаем только цифры
+      cell.value = cell.value.replace(/\D/g,'').slice(-1);
+      if(cell.value) {
+        cell.classList.add('filled');
+        cell.classList.remove('error');
+        if(i < cells.length-1) cells[i+1].focus();
+        // Автопроверка когда все 6 заполнены
+        if(i === cells.length-1) setTimeout(verifyCode, 120);
+      } else {
+        cell.classList.remove('filled');
+      }
+    });
+    cell.addEventListener('keydown', e => {
+      if(e.key==='Backspace' && !cell.value && i>0){ cells[i-1].focus(); cells[i-1].value=''; cells[i-1].classList.remove('filled'); }
+      if(e.key==='Enter') verifyCode();
+    });
+    // Вставка из буфера (целого кода)
+    cell.addEventListener('paste', e => {
+      e.preventDefault();
+      const paste = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
+      cells.forEach((c,j) => { if(paste[j]){ c.value=paste[j]; c.classList.add('filled'); } });
+      cells[Math.min(paste.length, cells.length-1)].focus();
+      if(paste.length===6) setTimeout(verifyCode, 120);
+    });
+  });
+  bindCursor();
+});
+
+function getCode(){
+  return Array.from(document.querySelectorAll('.code-cell')).map(c=>c.value).join('');
+}
+function setError(msg){
+  document.getElementById('code-error').textContent = msg;
+  document.querySelectorAll('.code-cell').forEach(c => c.classList.add('error'));
+  setTimeout(() => document.querySelectorAll('.code-cell').forEach(c => c.classList.remove('error')), 600);
+}
+
+// ---------- Verify code ----------
+async function verifyCode(){
+  const code = getCode();
+  if(code.length < 6){ setError('Введите все 6 цифр'); return; }
+
+  const btn = document.getElementById('verify-btn');
+  btn.textContent = 'Проверяем...';
+  btn.classList.add('verify-loading');
+
+  // ДЕМО-РЕЖИМ: принимаем любой код из 6 цифр
+  if(CONFIG.DEMO_MODE){
+    await new Promise(r => setTimeout(r, 900)); // имитация запроса
+    const demoUser = { tg_id: 123456, name: 'Пользователь', username: null };
+    saveUser(demoUser);
+    updateNav(demoUser);
+    goToStep3(demoUser);
+    btn.textContent = 'Войти →';
+    btn.classList.remove('verify-loading');
+    bindCursor();
+    return;
+  }
+
+  // РЕАЛЬНЫЙ РЕЖИМ (когда запущен бот):
+  try {
+    const res = await fetch(CONFIG.API_URL + '/verify_code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code })
+    });
+    const data = await res.json();
+
+    if(data.ok){
+      saveUser(data.user);
+      updateNav(data.user);
+      goToStep3(data.user);
+    } else {
+      setError(data.error || 'Неверный или истёкший код');
+    }
+  } catch(e) {
+    setError('Нет связи с сервером. Убедитесь что бот запущен.');
+  }
+
+  btn.textContent = 'Войти →';
+  btn.classList.remove('verify-loading');
+}
+
+// ---------- Nav ----------
+function updateNav(user){
+  const btn = document.querySelector('.nav-btn');
+  if(!btn) return;
+  const label = user.name ? user.name.split(' ')[0] : 'Кабинет';
+  btn.textContent = '👤 ' + label;
+  btn.onclick = handleNavClick;
+  bindCursor();
+}
+function handleNavClick(){
+  if(currentUser){
+    if(confirm('Выйти из аккаунта?')){ clearUser(); location.reload(); }
+  } else { openLogin(); }
+}
+
+// ---------- Cabinet ----------
+function goToCabinet(){
+  closeModals();
+  document.getElementById('cabinet').scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+
+</script>
+</body>
+</html>
