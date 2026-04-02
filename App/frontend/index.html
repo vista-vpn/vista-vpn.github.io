@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Vista — Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"></script>
+    <style>
+        /* Стили как в предыдущей версии */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            transition: background 0.2s ease;
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .page {
+            display: none;
+            padding: 20px 16px 30px;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-card {
+            background: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            border-radius: 28px;
+            padding: 24px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .avatar {
+            width: 72px;
+            height: 72px;
+            background: var(--tg-theme-button-color, #40a7e3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-info h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .btn {
+            background: var(--tg-theme-button-color, #40a7e3);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            border-radius: 60px;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--tg-theme-button-color, #40a7e3);
+            color: var(--tg-theme-button-color, #40a7e3);
+        }
+
+        .referral-box {
+            background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+            border-radius: 20px;
+            padding: 16px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .referral-link {
+            background: var(--tg-theme-bg-color, #fff);
+            padding: 12px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            flex: 1;
+            word-break: break-all;
+            font-family: monospace;
+            border: 0.5px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-grid {
+            display: flex;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: var(--tg-theme-secondary-bg-color, #f1f3f5);
+            flex: 1;
+            border-radius: 24px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .plan-card {
+            background: var(--tg-theme-secondary-bg-color, #f7f7fc);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .plan-card.popular {
+            border-color: var(--tg-theme-button-color, #40a7e3);
+            background: var(--tg-theme-bg-color, #ffffff);
+        }
+
+        .plan-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .bottom-tabs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--tg-theme-bg-color, #ffffff);
+            backdrop-filter: blur(10px);
+            border-top: 0.5px solid var(--tg-theme-hint-color, #cccccc);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 16px 12px;
+            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            background: none;
+            border: none;
+            color: var(--tg-theme-hint-color, #8e8e93);
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-family: inherit;
+        }
+
+        .tab-item i {
+            font-size: 1.6rem;
+        }
+
+        .tab-item.active {
+            color: var(--tg-theme-button-color, #40a7e3);
+        }
+
+        .toast-msg {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+        }
+
+        .badge {
+            background: var(--tg-theme-button-color, #40a7e3);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+        }
+
+        .subscription-badge {
+            background: #4caf50;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading" class="loading">Загрузка...</div>
+
+    <div id="profilePage" class="page">
+        <div class="profile-card" id="profileCard">
+            <div class="avatar" id="userAvatar"></div>
+            <div class="user-info">
+                <h2 id="userName">Загрузка...</h2>
+                <p><i class="fas fa-user-check"></i> <span id="userId">—</span></p>
+                <div id="subscriptionBadge"></div>
+            </div>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="refCount">0</div>
+                <div class="small">Рефералов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="balance">0</div>
+                <div class="small">Vista баллов</div>
+            </div>
+        </div>
+        <div class="section-title">🔗 Реферальная программа</div>
+        <p style="margin-bottom: 12px;">Приглашай друзей и получай 50 баллов за каждого!</p>
+        <div class="referral-box">
+            <div class="referral-link" id="refLinkText">Загрузка ссылки...</div>
+            <button class="btn-outline btn" id="copyRefBtn" style="width: auto; padding: 12px 18px;"><i
+                    class="fas fa-copy"></i> Копировать</button>
+        </div>
+        <button class="btn" id="shareRefBtn"><i class="fab fa-telegram"></i> Поделиться ссылкой</button>
+    </div>
+
+    <div id="subscriptionPage" class="page">
+        <div class="section-title">✨ Выбери тариф Vista</div>
+        <p style="margin-bottom: 16px;">Доступ к премиум функциям, VPN без ограничений и приоритетная поддержка</p>
+
+        <div class="plan-card" data-plan="basic">
+            <div>
+                <strong>📱 Базовый</strong><br>
+                <span class="small">30 дней / 1 устройство</span>
+            </div>
+            <div class="plan-price">299 ₽</div>
+        </div>
+        <div class="plan-card popular" data-plan="pro">
+            <div>
+                <strong>⭐ PRO</strong> <span class="badge">Популярный</span><br>
+                <span class="small">90 дней / до 5 устройств</span>
+            </div>
+            <div class="plan-price">799 ₽</div>
+        </div>
+        <div class="plan-card" data-plan="ultimate">
+            <div>
+                <strong>🚀 Ultimate</strong><br>
+                <span class="small">365 дней / неограниченно</span>
+            </div>
+            <div class="plan-price">1999 ₽</div>
+        </div>
+
+        <button class="btn" id="activateTrialBtn"
+            style="margin-top: 24px; background: var(--tg-theme-secondary-bg-color); color: var(--tg-theme-text-color);">
+            🎁 Активировать пробный период (3 дня бесплатно)
+        </button>
+    </div>
+
+    <div id="referralsPage" class="page">
+        <div class="section-title">👥 Мои рефералы</div>
+        <div id="referralsList"
+            style="background: var(--tg-theme-secondary-bg-color); border-radius: 24px; padding: 16px; margin-top: 12px;">
+            <p style="text-align: center; opacity: 0.7;">Загрузка...</p>
+        </div>
+        <div class="referral-box" style="margin-top: 20px;">
+            <div class="referral-link" id="refLinkText2">Загрузка...</div>
+            <button class="btn-outline btn" id="copyRefBtn2" style="width: auto;"><i class="fas fa-copy"></i></button>
+        </div>
+        <button class="btn" id="inviteFriendBtn"><i class="fab fa-telegram"></i> Пригласить друга</button>
+    </div>
+
+    <div class="bottom-tabs">
+        <button class="tab-item active" data-tab="profile"><i class="fas fa-user"></i><span>Профиль</span></button>
+        <button class="tab-item" data-tab="subscription"><i class="fas fa-crown"></i><span>Подписки</span></button>
+        <button class="tab-item" data-tab="referrals"><i class="fas fa-users"></i><span>Рефералы</span></button>
+    </div>
+
+    <div id="toastMsg" class="toast-msg"></div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.enableClosingConfirmation();
+
+        const API_URL = 'https://your-server.com/api'; // Замените на ваш URL
+
+        let currentUser = null;
+        let userStats = null;
+
+        // Показ уведомлений
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toastMsg');
+            toast.textContent = message;
+            toast.style.background = isError ? 'rgba(220, 53, 69, 0.9)' : 'rgba(0,0,0,0.8)';
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+
+        // Аутентификация пользователя
+        async function authenticateUser() {
+            try {
+                const user = tg.initDataUnsafe?.user;
+                if (!user) {
+                    throw new Error('No user data from Telegram');
+                }
+
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        initData: tg.initData,
+                        user: user
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    currentUser = data.user;
+                    userStats = data.stats;
+
+                    updateProfileUI();
+                    updateStatsUI();
+                    loadReferralLink();
+                    loadReferralsList();
+
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('profilePage').classList.add('active');
+
+                    // Обработка реферального параметра
+                    const startParam = tg.initDataUnsafe?.start_param;
+                    if (startParam && startParam.startsWith('ref_')) {
+                        processReferralClick(startParam);
+                    }
+                } else {
+                    throw new Error('Authentication failed');
+                }
+            } catch (error) {
+                console.error('Auth error:', error);
+                showToast('Ошибка подключения к серверу', true);
+                document.getElementById('loading').innerHTML = 'Ошибка загрузки. Попробуйте позже.';
+            }
+        }
+
+        // Обновление профиля
+        function updateProfileUI() {
+            if (!currentUser) return;
+
+            const fullName = currentUser.last_name ?
+                `${currentUser.first_name} ${currentUser.last_name}` :
+                currentUser.first_name;
+
+            document.getElementById('userName').textContent = fullName;
+            document.getElementById('userId').innerHTML = `<i class="fas fa-id-card"></i> ID: ${currentUser.telegram_id}`;
+
+            const avatarDiv = document.getElementById('userAvatar');
+            if (currentUser.photo_url) {
+                avatarDiv.innerHTML = `<img src="${currentUser.photo_url}" alt="avatar">`;
+            } else {
+                const initial = currentUser.first_name.charAt(0).toUpperCase();
+                avatarDiv.innerHTML = initial;
+                avatarDiv.style.background = tg.themeParams.button_color || '#40a7e3';
+            }
+        }
+
+        // Обновление статистики
+        function updateStatsUI() {
+            if (!userStats) return;
+
+            document.getElementById('refCount').textContent = userStats.total_referrals || 0;
+            document.getElementById('balance').textContent = userStats.balance || 0;
+        }
+
+        // Загрузка реферальной ссылки
+        async function loadReferralLink() {
+            try {
+                const response = await fetch(`${API_URL}/referral/link/${currentUser.id}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const linkText = data.link;
+                    document.getElementById('refLinkText').textContent = linkText;
+                    document.getElementById('refLinkText2').textContent = linkText;
+                }
+            } catch (error) {
+                console.error('Error loading referral link:', error);
+            }
+        }
+
+        // Загрузка списка рефералов
+        async function loadReferralsList() {
+            try {
+                const response = await fetch(`${API_URL}/referral/list/${currentUser.id}`);
+                const data = await response.json();
+
+                const referralsDiv = document.getElementById('referralsList');
+
+                if (data.success && data.referrals.length > 0) {
+                    let html = '<div style="display: flex; flex-direction: column; gap: 12px;">';
+                    data.referrals.forEach(ref => {
+                        html += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--tg-theme-bg-color); border-radius: 16px;">
+                            <div>
+                                <strong>${ref.name}</strong>
+                                ${ref.username ? `<div class="small">@${ref.username}</div>` : ''}
+                            </div>
+                            <div>
+                                <span style="color: #4caf50;">+${ref.bonus} баллов</span>
+                                <div class="small">${new Date(ref.date).toLocaleDateString()}</div>
+                            </div>
+                        </div>
+                    `;
+                    });
+                    html += '</div>';
+                    referralsDiv.innerHTML = html;
+                } else {
+                    referralsDiv.innerHTML = '<p style="text-align: center; opacity: 0.7;">У вас пока нет приглашённых друзей.<br>Поделитесь реферальной ссылкой!</p>';
+                }
+            } catch (error) {
+                console.error('Error loading referrals:', error);
+            }
+        }
+
+        // Обработка перехода по реферальной ссылке
+        async function processReferralClick(startParam) {
+            try {
+                const referrerTelegramId = parseInt(startParam.split('_')[1]);
+                const currentTelegramId = currentUser.telegram_id;
+
+                if (referrerTelegramId !== currentTelegramId) {
+                    const response = await fetch(`${API_URL}/referral/process`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            referrerTelegramId: referrerTelegramId,
+                            referredUserData: {
+                                id: currentTelegramId,
+                                first_name: currentUser.first_name,
+                                last_name: currentUser.last_name,
+                                username: currentUser.username,
+                                photo_url: currentUser.photo_url
+                            }
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (data.success && data.bonus_added) {
+                        showToast('🎉 Вы активировали реферальную ссылку! +10 баллов');
+                        // Обновляем статистику
+                        userStats.balance += 10;
+                        updateStatsUI();
+                    }
+                }
+            } catch (error) {
+                console.error('Error processing referral:', error);
+            }
+        }
+
+        // Копирование ссылки
+        function copyReferralLink() {
+            const link = document.getElementById('refLinkText').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                showToast('📋 Реферальная ссылка скопирована!');
+                tg.HapticFeedback.notificationOccurred('success');
+            }).catch(() => {
+                showToast('Не удалось скопировать', true);
+            });
+        }
+
+        // Поделиться ссылкой
+        function shareReferralLink() {
+            const link = document.getElementById('refLinkText').textContent;
+            tg.sendData(JSON.stringify({
+                action: 'share',
+                link: link
+            }));
+
+            tg.showPopup({
+                title: 'Пригласить друга',
+                message: `Отправь ссылку другу:\n${link}`,
+                buttons: [{ type: 'ok' }]
+            });
+        }
+
+        // Оформление подписки
+        async function subscribe(planName, price) {
+            tg.showPopup({
+                title: 'Оформление подписки',
+                message: `Вы выбрали тариф ${planName}. Стоимость: ${price} ₽.`,
+                buttons: [
+                    { id: 'pay', type: 'default', text: 'Оплатить' },
+                    { type: 'cancel' }
+                ]
+            }, async (btnId) => {
+                if (btnId === 'pay') {
+                    try {
+                        const response = await fetch(`${API_URL}/subscription/create`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                userId: currentUser.id,
+                                planType: planName.toLowerCase()
+                            })
+                        });
+
+                        const data = await response.json();
+                        if (data.success) {
+                            showToast(`✅ Подписка ${planName} активирована!`);
+                            tg.HapticFeedback.notificationOccurred('success');
+                        }
+                    } catch (error) {
+                        showToast('Ошибка оформления подписки', true);
+                    }
+                }
+            });
+        }
+
+        // Активация пробного периода
+        async function activateTrial() {
+            tg.showPopup({
+                title: 'Пробный период',
+                message: 'Активировать 3 дня бесплатного доступа Vista Premium?',
+                buttons: [
+                    { id: 'yes', type: 'default', text: 'Активировать' },
+                    { type: 'cancel' }
+                ]
+            }, async (btnId) => {
+                if (btnId === 'yes') {
+                    try {
+                        const response = await fetch(`${API_URL}/subscription/trial`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                userId: currentUser.id
+                            })
+                        });
+
+                        const data = await response.json();
+                        if (data.success) {
+                            showToast('🎉 Пробный период активирован на 3 дня!');
+                        }
+                    } catch (error) {
+                        showToast('Ошибка активации', true);
+                    }
+                }
+            });
+        }
+
+        // Переключение вкладок
+        function switchTab(tabName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(`${tabName}Page`).classList.add('active');
+
+            document.querySelectorAll('.tab-item').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-tab') === tabName) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (tabName === 'referrals') {
+                loadReferralsList();
+            }
+
+            tg.HapticFeedback.selectionChanged();
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            authenticateUser();
+
+            // Обработчики вкладок
+            document.querySelectorAll('.tab-item').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchTab(btn.getAttribute('data-tab'));
+                });
+            });
+
+            // Обработчики кнопок
+            document.getElementById('copyRefBtn').addEventListener('click', copyReferralLink);
+            document.getElementById('copyRefBtn2').addEventListener('click', copyReferralLink);
+            document.getElementById('shareRefBtn').addEventListener('click', shareReferralLink);
+            document.getElementById('inviteFriendBtn').addEventListener('click', shareReferralLink);
+            document.getElementById('activateTrialBtn').addEventListener('click', activateTrial);
+
+            // Обработчики подписок
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const plan = card.getAttribute('data-plan');
+                    let price = '';
+                    let planName = '';
+
+                    if (plan === 'basic') {
+                        price = '299';
+                        planName = 'Базовый';
+                    } else if (plan === 'pro') {
+                        price = '799';
+                        planName = 'PRO';
+                    } else {
+                        price = '1999';
+                        planName = 'Ultimate';
+                    }
+
+                    subscribe(planName, price);
+                });
+            });
+
+            tg.ready();
+        });
+    </script>
+</body>
+
+</html>
