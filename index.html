@@ -1,663 +1,2108 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta name="enot" content="e8a3edbf" />
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Vista VPN — Свобода в сети</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="enot" content="e8a3edbf" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Vista VPN — Свобода в сети</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
 
-  <!-- Search Engine -->
-  <meta name="title" content="Свобода сети - Vista VPN">
-  <meta name="description" content="Vista VPN - это Ваш проводник в свободный интернет без блокировок.">
-  <meta name="keywords" content="виста впн, vista vpn, впн, vpn, лучший впн, впн бесплатно, впн 2026, vpn 2026">
-  <style>
-    /* Глобальные переменные темы */
-    :root {
-      /* Светлая тема (по умолчанию) */
-      --sky1: #a8d8f0;
-      --teal: #00b4d8;
-      --teal2: #48cae4;
-      --green: #52b788;
-      --blue: #0077b6;
-      --blue2: #023e8a;
-      --glass: rgba(255,255,255,0.38);
-      --glass-border: rgba(255,255,255,0.75);
-      --text-dark: #0a1628;
-      --text-mid: #1a3a5c;
-      --text-soft: #4a7a9b;
-      --shadow: rgba(0,100,180,0.15);
-      --bg-gradient-1: #cceeff;
-      --bg-gradient-2: #d8f4ff;
-      --bg-gradient-3: #a0ccdf;
-      --bg-gradient-4: #c8eaf8;
-      --bg-gradient-5: #a4cee0;
-      --bg-gradient-6: #82b8d0;
-      --bg-gradient-7: #60a2be;
-      --card-bg: rgba(255,255,255,0.48);
-      --card-border: rgba(255,255,255,0.82);
-      --nav-bg: rgba(255,255,255,0.42);
-      --footer-bg: rgba(255,255,255,0.32);
-      --modal-bg: rgba(255,255,255,0.72);
-      --input-bg: rgba(255,255,255,0.62);
-      --btn-g-bg: rgba(255,255,255,0.52);
-      --btn-g-hover: rgba(255,255,255,0.72);
-      --hero-pill-bg: rgba(255,255,255,0.58);
-      --stat-bg: rgba(255,255,255,0.42);
-      --divider-color: rgba(255,255,255,0.75);
-      --shadow-color: rgba(0,100,180,0.1);
-    }
+    <!-- Search Engine -->
+    <meta name="title" content="Свобода сети - Vista VPN">
+    <meta name="description" content="Vista VPN - это Ваш проводник в свободный интернет без блокировок.">
+    <meta name="keywords" content="виста впн, vista vpn, впн, vpn, лучший впн, впн бесплатно, впн 2026, vpn 2026">
+    <style>
+        /* Глобальные переменные темы */
+        :root {
+            /* Светлая тема (по умолчанию) */
+            --sky1: #a8d8f0;
+            --teal: #00b4d8;
+            --teal2: #48cae4;
+            --green: #52b788;
+            --blue: #0077b6;
+            --blue2: #023e8a;
+            --glass: rgba(255, 255, 255, 0.38);
+            --glass-border: rgba(255, 255, 255, 0.75);
+            --text-dark: #0a1628;
+            --text-mid: #1a3a5c;
+            --text-soft: #4a7a9b;
+            --shadow: rgba(0, 100, 180, 0.15);
+            --bg-gradient-1: #cceeff;
+            --bg-gradient-2: #d8f4ff;
+            --bg-gradient-3: #a0ccdf;
+            --bg-gradient-4: #c8eaf8;
+            --bg-gradient-5: #a4cee0;
+            --bg-gradient-6: #82b8d0;
+            --bg-gradient-7: #60a2be;
+            --card-bg: rgba(255, 255, 255, 0.48);
+            --card-border: rgba(255, 255, 255, 0.82);
+            --nav-bg: rgba(255, 255, 255, 0.42);
+            --footer-bg: rgba(255, 255, 255, 0.32);
+            --modal-bg: rgba(255, 255, 255, 0.72);
+            --input-bg: rgba(255, 255, 255, 0.62);
+            --btn-g-bg: rgba(255, 255, 255, 0.52);
+            --btn-g-hover: rgba(255, 255, 255, 0.72);
+            --hero-pill-bg: rgba(255, 255, 255, 0.58);
+            --stat-bg: rgba(255, 255, 255, 0.42);
+            --divider-color: rgba(255, 255, 255, 0.75);
+            --shadow-color: rgba(0, 100, 180, 0.1);
+        }
 
-    /* Тёмная тема */
-    [data-theme="dark"] {
-      --sky1: #1a2a3a;
-      --teal: #00d4ff;
-      --teal2: #80e0ff;
-      --green: #6abf69;
-      --blue: #48cae4;
-      --blue2: #90e0ef;
-      --glass: rgba(0,0,0,0.38);
-      --glass-border: rgba(255,255,255,0.25);
-      --text-dark: #e8f0fe;
-      --text-mid: #c0d0e0;
-      --text-soft: #90a8b8;
-      --shadow: rgba(0,0,0,0.25);
-      --bg-gradient-1: #0f1a24;
-      --bg-gradient-2: #0d1720;
-      --bg-gradient-3: #0a121a;
-      --bg-gradient-4: #0b1720;
-      --bg-gradient-5: #0e1c28;
-      --bg-gradient-6: #0a1520;
-      --bg-gradient-7: #071018;
-      --card-bg: rgba(20,30,45,0.6);
-      --card-border: rgba(255,255,255,0.15);
-      --nav-bg: rgba(10,20,30,0.5);
-      --footer-bg: rgba(10,20,30,0.4);
-      --modal-bg: rgba(20,30,45,0.85);
-      --input-bg: rgba(30,45,60,0.7);
-      --btn-g-bg: rgba(30,45,60,0.6);
-      --btn-g-hover: rgba(50,70,90,0.7);
-      --hero-pill-bg: rgba(30,45,60,0.5);
-      --stat-bg: rgba(20,35,50,0.5);
-      --divider-color: rgba(255,255,255,0.2);
-      --shadow-color: rgba(0,0,0,0.3);
-    }
+        /* Тёмная тема */
+        [data-theme="dark"] {
+            --sky1: #1a2a3a;
+            --teal: #00d4ff;
+            --teal2: #80e0ff;
+            --green: #6abf69;
+            --blue: #48cae4;
+            --blue2: #90e0ef;
+            --glass: rgba(0, 0, 0, 0.38);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --text-dark: #e8f0fe;
+            --text-mid: #c0d0e0;
+            --text-soft: #90a8b8;
+            --shadow: rgba(0, 0, 0, 0.25);
+            --bg-gradient-1: #0f1a24;
+            --bg-gradient-2: #0d1720;
+            --bg-gradient-3: #0a121a;
+            --bg-gradient-4: #0b1720;
+            --bg-gradient-5: #0e1c28;
+            --bg-gradient-6: #0a1520;
+            --bg-gradient-7: #071018;
+            --card-bg: rgba(20, 30, 45, 0.6);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --nav-bg: rgba(10, 20, 30, 0.5);
+            --footer-bg: rgba(10, 20, 30, 0.4);
+            --modal-bg: rgba(20, 30, 45, 0.85);
+            --input-bg: rgba(30, 45, 60, 0.7);
+            --btn-g-bg: rgba(30, 45, 60, 0.6);
+            --btn-g-hover: rgba(50, 70, 90, 0.7);
+            --hero-pill-bg: rgba(30, 45, 60, 0.5);
+            --stat-bg: rgba(20, 35, 50, 0.5);
+            --divider-color: rgba(255, 255, 255, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    
-    html { scroll-behavior:smooth; }
-    
-    /* Плавный переход для всех элементов при смене темы */
-    * {
-      transition: background-color 0.3s ease, 
-                  background 0.3s ease, 
-                  border-color 0.2s ease,
-                  color 0.2s ease,
-                  box-shadow 0.2s ease,
-                  backdrop-filter 0.2s ease;
-    }
-    
-    body { 
-      font-family:'Nunito',sans-serif; 
-      background: var(--bg-gradient-4);
-      color: var(--text-dark); 
-      overflow-x:hidden; 
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* PAGE BACKGROUND - обновлён для поддержки темы */
-    .page-bg { 
-      position:fixed; 
-      inset:0; 
-      z-index:-2;
-      background: radial-gradient(ellipse 80% 60% at 15% 5%, var(--bg-gradient-1) 0%, transparent 55%),
-                  radial-gradient(ellipse 60% 70% at 85% 0%, var(--bg-gradient-2) 0%, transparent 55%),
-                  radial-gradient(ellipse 90% 60% at 50% 100%, var(--bg-gradient-3) 0%, transparent 55%),
-                  linear-gradient(175deg, var(--bg-gradient-4) 0%, var(--bg-gradient-5) 35%, var(--bg-gradient-6) 65%, var(--bg-gradient-7) 100%);
-      transition: background 0.4s ease;
-    }
-    
-    /* bokeh */
-    .bk { position:fixed; border-radius:50%; pointer-events:none; z-index:-1; }
-    .bk1 { width:450px; height:450px; top:-120px; left:-150px; background:radial-gradient(circle,rgba(255,255,255,0.38) 0%,transparent 70%); animation:bf 14s ease-in-out infinite; }
-    .bk2 { width:320px; height:320px; top:25%; right:-80px; background:radial-gradient(circle,rgba(0,210,240,0.18) 0%,transparent 70%); animation:bf 10s ease-in-out infinite 2s reverse; }
-    .bk3 { width:520px; height:280px; bottom:5%; left:15%; background:radial-gradient(circle,rgba(255,255,255,0.22) 0%,transparent 70%); animation:bf 17s ease-in-out infinite 1s; }
-    .bk4 { width:200px; height:200px; top:55%; right:25%; background:radial-gradient(circle,rgba(80,210,180,0.18) 0%,transparent 70%); animation:bf 12s ease-in-out infinite 3s; }
-    
-    [data-theme="dark"] .bk1 { background:radial-gradient(circle,rgba(0,100,150,0.3) 0%,transparent 70%); }
-    [data-theme="dark"] .bk2 { background:radial-gradient(circle,rgba(0,180,200,0.15) 0%,transparent 70%); }
-    [data-theme="dark"] .bk3 { background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%); }
-    [data-theme="dark"] .bk4 { background:radial-gradient(circle,rgba(0,200,150,0.12) 0%,transparent 70%); }
-    
-    @keyframes bf { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(25px,-35px) scale(1.06)} 66%{transform:translate(-18px,22px) scale(0.96)} }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* CURSOR - скрываем на тач-устройствах */
-    .cursor, .cursor-ring { 
-      width:12px; height:12px; background:white; border-radius:50%; position:fixed; 
-      pointer-events:none; z-index:9999; transform:translate(-50%,-50%); 
-      transition:transform 0.15s; 
-    }
-    .cursor-ring { width:32px; height:32px; border:1.5px solid rgba(255,255,255,0.75); transition:all 0.1s; z-index:9998; }
-    @media (max-width: 768px) {
-      .cursor, .cursor-ring { display: none; }
-    }
+        /* Плавный переход для всех элементов при смене темы */
+        * {
+            transition: background-color 0.3s ease,
+                background 0.3s ease,
+                border-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease,
+                backdrop-filter 0.2s ease;
+        }
 
-    /* NAV - адаптивная */
-    nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:12px 24px;
-      background: var(--nav-bg);
-      backdrop-filter:blur(24px) saturate(200%);
-      border-bottom:1px solid var(--glass-border);
-      box-shadow:0 2px 20px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.1);
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
-    .logo-gem { width:38px; height:38px; border-radius:10px;
-      background:linear-gradient(145deg,#5dd4f4 0%,#00a8cc 45%,#0077a8 100%);
-      border:1.5px solid var(--glass-border);
-      box-shadow:0 4px 14px var(--shadow-color), inset 0 1.5px 0 rgba(255,255,255,0.65);
-      display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
-    }
-    .logo-gem::after { content:''; position:absolute; top:2px; left:5px; right:8px; height:38%; background:rgba(255,255,255,0.42); border-radius:50%; filter:blur(2px); }
-    .logo-gem svg { width:20px; height:20px; fill:white; position:relative; z-index:1; }
-    .logo-text { font-size:18px; font-weight:900; letter-spacing:-0.3px; color:var(--text-dark); }
-    .logo-text em { font-style:normal; color:var(--blue); }
-    .nav-links { display:flex; gap:20px; align-items:center; }
-    .nav-links a { color:var(--text-mid); text-decoration:none; font-size:14px; font-weight:700; transition:color 0.2s; }
-    .nav-links a:hover { color:var(--blue); }
-    .nav-btn { padding:8px 18px; border-radius:20px; border:none;
-      background:linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(210,240,255,0.85) 100%);
-      border:1.5px solid var(--glass-border); 
-      box-shadow:0 2px 8px var(--shadow-color), inset 0 1px 0 white;
-      color:var(--blue); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800;
-      cursor:pointer; transition:all 0.2s;
-    }
-    .nav-btn:hover { transform:translateY(-1px); box-shadow:0 4px 16px var(--shadow-color), inset 0 1px 0 white; }
-    
-    [data-theme="dark"] .nav-btn {
-      background:linear-gradient(180deg, rgba(50,70,100,0.95) 0%, rgba(30,50,80,0.85) 100%);
-      color: var(--teal);
-    }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-gradient-4);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
 
-    /* Кнопка переключения темы */
-    .theme-toggle {
-      background: var(--btn-g-bg);
-      border: 1.5px solid var(--glass-border);
-      border-radius: 40px;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      backdrop-filter: blur(12px);
-      transition: all 0.3s ease;
-      margin-left: 12px;
-    }
-    .theme-toggle:hover {
-      transform: scale(1.05);
-      background: var(--btn-g-hover);
-    }
-    .theme-toggle svg {
-      width: 24px;
-      height: 24px;
-      transition: transform 0.3s ease;
-    }
-    .theme-toggle:hover svg {
-      transform: rotate(15deg);
-    }
-    [data-theme="dark"] .theme-toggle .sun-icon,
-    .theme-toggle .moon-icon {
-      display: none;
-    }
-    [data-theme="dark"] .theme-toggle .moon-icon {
-      display: block;
-    }
-    .theme-toggle .sun-icon {
-      display: block;
-    }
-    [data-theme="dark"] .theme-toggle .sun-icon {
-      display: none;
-    }
+        /* PAGE BACKGROUND */
+        .page-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: radial-gradient(ellipse 80% 60% at 15% 5%, var(--bg-gradient-1) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 70% at 85% 0%, var(--bg-gradient-2) 0%, transparent 55%),
+                radial-gradient(ellipse 90% 60% at 50% 100%, var(--bg-gradient-3) 0%, transparent 55%),
+                linear-gradient(175deg, var(--bg-gradient-4) 0%, var(--bg-gradient-5) 35%, var(--bg-gradient-6) 65%, var(--bg-gradient-7) 100%);
+            transition: background 0.4s ease;
+        }
 
-    /* HERO */
-    .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 24px 60px; position:relative; overflow:hidden; }
-    .ho { position:absolute; border-radius:50%; pointer-events:none; }
-    .ho1 { width:280px; height:280px; right:5%; top:12%; background:radial-gradient(circle at 33% 28%, rgba(255,255,255,0.88) 0%,rgba(140,225,255,0.55) 35%,rgba(0,160,220,0.28) 65%,transparent 100%); border:1px solid rgba(255,255,255,0.65); animation:orb 9s ease-in-out infinite; }
-    .ho2 { width:150px; height:150px; right:10%; top:58%; background:radial-gradient(circle at 33% 28%, rgba(255,255,255,0.92) 0%,rgba(110,240,200,0.48) 42%,rgba(0,180,150,0.2) 70%,transparent 100%); border:1px solid rgba(255,255,255,0.72); animation:orb 7s ease-in-out infinite 1.5s; }
-    .ho3 { width:70px; height:70px; right:8%; top:74%; background:radial-gradient(circle at 33% 28%, rgba(255,255,255,0.97) 0%,rgba(190,245,255,0.55) 50%,transparent 100%); border:1px solid rgba(255,255,255,0.82); animation:orb 5.5s ease-in-out infinite 3s; }
-    [data-theme="dark"] .ho1, [data-theme="dark"] .ho2, [data-theme="dark"] .ho3 { opacity: 0.4; }
-    @keyframes orb { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-15px) rotate(2deg)} }
+        /* bokeh */
+        .bk {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
 
-    .hero-content { position:relative; z-index:2; max-width:100%; width:100%; }
-    .hero-pill { display:inline-flex; align-items:center; gap:9px; background: var(--hero-pill-bg); border:1.5px solid var(--glass-border); backdrop-filter:blur(12px); padding:5px 14px 5px 6px; border-radius:100px; font-size:12px; font-weight:800; color:var(--blue); margin-bottom:28px; letter-spacing:0.3px; box-shadow:0 2px 12px var(--shadow-color), inset 0 1px 0 white; animation:fu 0.7s ease both; }
-    .pdot { width:24px; height:24px; border-radius:50%; background:linear-gradient(135deg,#5ce89a,#00c48a); border:2px solid white; box-shadow:0 2px 7px rgba(0,165,120,0.42); display:flex; align-items:center; justify-content:center; font-size:12px; }
-    .hero h1 { font-size:clamp(44px, 12vw, 86px); font-weight:900; line-height:1.1; letter-spacing:-2px; color:var(--text-dark); animation:fu 0.7s ease 0.1s both; text-shadow:0 2px 20px rgba(0,80,140,0.12); }
-    .hero h1 .grad { background:linear-gradient(135deg,var(--blue),var(--teal),var(--teal2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:inline-block; }
-    .hero-sub { font-size:16px; color:var(--text-mid); margin-top:20px; line-height:1.5; font-weight:600; max-width:100%; animation:fu 0.7s ease 0.2s both; }
-    .hero-actions { display:flex; gap:12px; margin-top:32px; animation:fu 0.7s ease 0.3s both; flex-wrap:wrap; }
-    .btn-p { padding:12px 24px; border-radius:26px; border:none; background:linear-gradient(180deg,#1ab8e8 0%,#008ec4 50%,#006ea4 100%); border-top:1.5px solid rgba(255,255,255,0.62); box-shadow:0 7px 22px rgba(0,120,180,0.46),inset 0 1.5px 0 rgba(255,255,255,0.52),inset 0 -2px 4px rgba(0,0,0,0.12); color:white; font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; transition:all 0.22s; text-decoration:none; display:inline-block; text-align:center; }
-    .btn-p:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,120,180,0.52),inset 0 1.5px 0 rgba(255,255,255,0.52); }
-    .btn-g { padding:12px 24px; border-radius:26px; background: var(--btn-g-bg); border:1.5px solid var(--glass-border); backdrop-filter:blur(12px); box-shadow:0 4px 14px var(--shadow-color), inset 0 1px 0 white; color:var(--text-mid); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; transition:all 0.22s; text-decoration:none; display:inline-block; text-align:center; }
-    .btn-g:hover { background: var(--btn-g-hover); transform:translateY(-2px); }
-    @keyframes fu { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+        .bk1 {
+            width: 450px;
+            height: 450px;
+            top: -120px;
+            left: -150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.38) 0%, transparent 70%);
+            animation: bf 14s ease-in-out infinite;
+        }
 
-    /* Hero stats */
-    .hero-stats { display:flex; gap:0; margin-top:40px; max-width:100%; background: var(--stat-bg); border:1.5px solid var(--glass-border); backdrop-filter:blur(20px); border-radius:20px; box-shadow:0 8px 24px var(--shadow-color), inset 0 1.5px 0 white; overflow:hidden; animation:fu 0.7s ease 0.4s both; }
-    .hs { flex:1; padding:16px 12px; text-align:center; position:relative; }
-    .hs+.hs::before { content:''; position:absolute; left:0; top:18%; bottom:18%; width:1px; background: var(--divider-color); }
-    .hs-n { font-size:20px; font-weight:900; color:var(--blue); letter-spacing:-1px; }
-    .hs-l { font-size:9px; font-weight:800; color:var(--text-soft); margin-top:2px; letter-spacing:0.8px; text-transform:uppercase; }
+        .bk2 {
+            width: 320px;
+            height: 320px;
+            top: 25%;
+            right: -80px;
+            background: radial-gradient(circle, rgba(0, 210, 240, 0.18) 0%, transparent 70%);
+            animation: bf 10s ease-in-out infinite 2s reverse;
+        }
 
-    /* SECTIONS */
-    section { padding:60px 24px; }
-    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:2px; color:var(--blue); margin-bottom:14px; }
-    .el { width:22px; height:2px; background:linear-gradient(90deg,var(--blue),var(--teal)); border-radius:2px; }
-    .sec-title { font-size:clamp(28px, 6vw, 50px); font-weight:900; letter-spacing:-1.5px; color:var(--text-dark); line-height:1.2; }
-    .sec-title em { font-style:normal; background:linear-gradient(135deg,var(--blue),var(--teal)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .bk3 {
+            width: 520px;
+            height: 280px;
+            bottom: 5%;
+            left: 15%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, transparent 70%);
+            animation: bf 17s ease-in-out infinite 1s;
+        }
 
-    /* FEATURES */
-    .feat-sec { background: var(--card-bg); backdrop-filter:blur(8px); }
-    .fg { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px; margin-top:40px; }
-    .fc { background: var(--card-bg); backdrop-filter:blur(22px) saturate(160%); border:1.5px solid var(--card-border); border-radius:20px; padding:24px; box-shadow:0 6px 24px var(--shadow-color), inset 0 1.5px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(255,255,255,0.05); transition:all 0.3s; position:relative; overflow:hidden; }
-    .fc:hover { transform:translateY(-5px); box-shadow:0 16px 44px var(--shadow-color), inset 0 1.5px 0 rgba(255,255,255,0.15); background: var(--btn-g-hover); }
-    .fg-icon { width:48px; height:48px; border-radius:14px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; font-size:22px; position:relative; overflow:hidden; }
-    .i-teal { background:linear-gradient(145deg,#82eefb,#2ac8e0,#009ec0); border:1.5px solid rgba(255,255,255,0.75); }
-    .i-green { background:linear-gradient(145deg,#a8e8c0,#52cc8a,#28aa6a); border:1.5px solid rgba(255,255,255,0.75); }
-    .i-sky { background:linear-gradient(145deg,#bcecff,#62ccf4,#1ca8e2); border:1.5px solid rgba(255,255,255,0.75); }
-    .ft { font-size:17px; font-weight:800; color:var(--text-dark); margin-bottom:8px; }
-    .fd { font-size:13px; color:var(--text-soft); line-height:1.6; font-weight:600; }
+        .bk4 {
+            width: 200px;
+            height: 200px;
+            top: 55%;
+            right: 25%;
+            background: radial-gradient(circle, rgba(80, 210, 180, 0.18) 0%, transparent 70%);
+            animation: bf 12s ease-in-out infinite 3s;
+        }
 
-    /* PRICING */
-    .pr-sec { background: rgba(0,0,0,0.05); backdrop-filter:blur(6px); }
-    [data-theme="dark"] .pr-sec { background: rgba(0,0,0,0.2); }
-    .pr-center { display:flex; justify-content:center; margin-top:40px; width:100%; }
-    .plan-card { background: var(--card-bg); backdrop-filter:blur(30px) saturate(185%); border:2px solid var(--glass-border); border-radius:28px; padding:32px 24px; box-shadow:0 22px 64px var(--shadow-color), inset 0 2px 0 rgba(255,255,255,0.1), inset 0 -2px 0 rgba(200,232,255,0.1); max-width:400px; width:100%; position:relative; overflow:hidden; }
-    .plan-card::before { content:''; position:absolute; top:0; left:12%; right:12%; height:2px; background:linear-gradient(90deg,transparent,white,transparent); opacity:0.3; }
-    .badge-wrap { display:flex; justify-content:center; margin-bottom:20px; }
-    .plan-badge { background:linear-gradient(145deg,#5ae8a0,#00cc8a,#009968); border:2px solid rgba(255,255,255,0.82); box-shadow:0 4px 16px rgba(0,160,120,0.4),inset 0 1px 0 rgba(255,255,255,0.52); color:white; font-size:11px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:6px 20px; border-radius:100px; }
-    .pn { text-align:center; font-size:13px; font-weight:800; color:var(--text-soft); letter-spacing:2px; text-transform:uppercase; }
-    .pp { text-align:center; margin:12px 0 4px; }
-    .pp .amt { font-size:64px; font-weight:900; letter-spacing:-4px; color:var(--blue); line-height:1; }
-    .pp .cur { font-size:28px; font-weight:900; color:var(--blue); vertical-align:top; margin-top:10px; display:inline-block; }
-    .pop { text-align:center; font-size:12px; color:var(--text-soft); font-weight:700; }
-    .pdiv { height:1px; background:linear-gradient(90deg,transparent,var(--text-soft),transparent); margin:20px 0; opacity:0.3; }
-    .pfl { list-style:none; display:flex; flex-direction:column; gap:12px; }
-    .pfl li { font-size:14px; font-weight:700; color:var(--text-mid); display:flex; align-items:center; gap:10px; }
-    .cg { width:22px; height:22px; border-radius:6px; flex-shrink:0; background:linear-gradient(145deg,#80eba0,#28cc70,#009950); border:1.5px solid rgba(255,255,255,0.72); display:flex; align-items:center; justify-content:center; font-size:11px; color:white; }
-    .btn-pay { display:block; width:100%; margin-top:28px; padding:14px; border-radius:24px; border:none; background:linear-gradient(180deg,#24c8f2 0%,#00acd8 48%,#008ab8 100%); border-top:2px solid rgba(255,255,255,0.62); box-shadow:0 8px 26px rgba(0,120,180,0.42),inset 0 1.5px 0 rgba(255,255,255,0.56),inset 0 -3px 6px rgba(0,0,0,0.1); color:white; font-family:'Nunito',sans-serif; font-size:16px; font-weight:900; cursor:pointer; transition:all 0.25s; text-align:center; }
-    .btn-pay:hover { transform:translateY(-3px); }
+        [data-theme="dark"] .bk1 {
+            background: radial-gradient(circle, rgba(0, 100, 150, 0.3) 0%, transparent 70%);
+        }
 
-    /* FOOTER */
-    footer { padding:28px 24px; background: var(--footer-bg); backdrop-filter:blur(20px); border-top:1.5px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-    .fb { font-size:18px; font-weight:900; color:var(--text-dark); }
-    .fb em { font-style:normal; color:var(--blue); }
-    .fc2 { font-size:12px; color:var(--text-soft); font-weight:700; }
+        [data-theme="dark"] .bk2 {
+            background: radial-gradient(circle, rgba(0, 180, 200, 0.15) 0%, transparent 70%);
+        }
 
-    /* MODALS */
-    .mo { position:fixed; inset:0; z-index:500; background:rgba(0,0,0,0.5); backdrop-filter:blur(18px); display:none; align-items:center; justify-content:center; padding:16px; }
-    .mo.active { display:flex; }
-    .m { background: var(--modal-bg); backdrop-filter:blur(34px) saturate(200%); border:2px solid var(--glass-border); border-radius:26px; padding:32px 24px; width:100%; max-width:440px; box-shadow:0 32px 84px var(--shadow-color), inset 0 2px 0 rgba(255,255,255,0.1); position:relative; overflow:hidden; max-height:90vh; overflow-y:auto; }
-    .mclose { position:absolute; top:16px; right:16px; width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#ffaaaa,#dd4444); border:1.5px solid rgba(255,255,255,0.72); cursor:pointer; color:white; font-size:12px; font-weight:900; display:flex; align-items:center; justify-content:center; }
-    .mt { font-size:24px; font-weight:900; color:var(--text-dark); margin-bottom:6px; }
-    .ms { font-size:13px; color:var(--text-soft); font-weight:600; margin-bottom:28px; }
-    .fl { font-size:11px; font-weight:800; color:var(--text-soft); text-transform:uppercase; letter-spacing:1.5px; display:block; margin-bottom:7px; }
-    .fi { width:100%; background: var(--input-bg); border:1.5px solid var(--glass-border); backdrop-filter:blur(8px); color:var(--text-dark); padding:12px 16px; border-radius:12px; font-family:'Nunito',sans-serif; font-size:15px; font-weight:700; outline:none; }
-    .fi:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(0,160,220,0.15); background: var(--btn-g-hover); }
-    .fg2 { margin-bottom:18px; }
-    .tgbtn { width:100%; padding:14px; border-radius:16px; border:none; background:linear-gradient(180deg,#40bcec 0%,#189acc 50%,#007aaa 100%); border-top:1.5px solid rgba(255,255,255,0.52); box-shadow:0 6px 18px rgba(0,120,180,0.36),inset 0 1.5px 0 rgba(255,255,255,0.52); color:white; font-family:'Nunito',sans-serif; font-size:15px; font-weight:900; cursor:pointer; transition:all 0.2s; margin-bottom:16px; text-align:center; text-decoration:none; display:block; }
-    .fbtn { width:100%; padding:14px; border-radius:16px; border:none; background:linear-gradient(180deg,#1ccef2,#009bcc 50%,#0079aa); border-top:1.5px solid rgba(255,255,255,0.56); box-shadow:0 6px 18px rgba(0,120,180,0.36),inset 0 1.5px 0 rgba(255,255,255,0.52); color:white; font-family:'Nunito',sans-serif; font-size:15px; font-weight:900; cursor:pointer; transition:all 0.2s; margin-top:6px; text-align:center; }
-    .fsw { text-align:center; margin-top:18px; font-size:13px; color:var(--text-soft); font-weight:700; }
-    .fsw a { color:var(--blue); cursor:pointer; font-weight:800; text-decoration:none; }
-    .pib { background: var(--card-bg); border:1.5px solid var(--glass-border); border-radius:16px; padding:16px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; }
-    .pibn { font-size:16px; font-weight:900; color:var(--text-dark); }
-    .pibp { font-size:24px; font-weight:900; color:var(--blue); }
-    .yknote { background:rgba(0,160,220,0.08); border:1.5px solid rgba(0,160,220,0.2); border-radius:12px; padding:10px 14px; margin-bottom:18px; font-size:12px; color:var(--text-soft); font-weight:700; display:flex; align-items:center; gap:8px; }
+        [data-theme="dark"] .bk3 {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+        }
 
-    /* Code input cells */
-    .code-cell { width:44px; height:52px; border-radius:14px; text-align:center; font-size:22px; font-weight:900; color:var(--blue); background: var(--input-bg); border:2px solid var(--glass-border); backdrop-filter:blur(8px); outline:none; font-family:'Nunito',sans-serif; transition:all 0.18s; }
-    .code-cell:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(0,160,220,0.18); background: var(--btn-g-hover); transform:scale(1.05); }
-    .code-cell.filled { border-color:rgba(0,180,120,0.5); background:rgba(220,255,240,0.7); }
-    [data-theme="dark"] .code-cell.filled { background:rgba(0,100,80,0.5); border-color:var(--green); }
-    .code-cell.error { border-color:rgba(220,60,60,0.6); background:rgba(220,60,60,0.2); animation:shake 0.4s ease; }
-    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)} 60%{transform:translateX(5px)} }
-    #code-inputs { display:flex; gap:8px; justify-content:center; margin-bottom:10px; flex-wrap:wrap; }
+        [data-theme="dark"] .bk4 {
+            background: radial-gradient(circle, rgba(0, 200, 150, 0.12) 0%, transparent 70%);
+        }
 
-    /* Адаптивные правки */
-    @media(max-width: 768px) {
-      nav { padding:10px 16px; }
-      .nav-links a:first-child, .nav-links a:last-child { display: none; }
-      .nav-links { gap:12px; }
-      .theme-toggle { width: 40px; height: 40px; margin-left: 8px; }
-      .hero { padding:100px 16px 50px; }
-      .hero-stats { margin-top:32px; }
-      .hs-n { font-size:16px; }
-      .hs { padding:12px 8px; }
-      section { padding:50px 16px; }
-      .fg { gap:14px; }
-      .fc { padding:20px; }
-      .plan-card { padding:28px 20px; margin:0 16px; }
-      .pp .amt { font-size:52px; }
-      .pp .cur { font-size:24px; }
-      .m { padding:24px 20px; }
-      .code-cell { width:40px; height:48px; font-size:20px; }
-      #code-inputs { gap:6px; }
-    }
-    @media(max-width: 480px) {
-      .hero-actions { flex-direction: column; width:100%; }
-      .hero-actions .btn-p, .hero-actions .btn-g { width:100%; text-align:center; }
-      .hero-stats { flex-direction: column; }
-      .hs+.hs::before { display: none; }
-      .hs { border-top:1px solid var(--divider-color); }
-      .hs:first-child { border-top: none; }
-      .code-cell { width:36px; height:44px; font-size:18px; }
-      #code-inputs { gap:5px; }
-      .sec-title { font-size:clamp(26px, 7vw, 40px); }
-    }
-  </style>
+        @keyframes bf {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            33% {
+                transform: translate(25px, -35px) scale(1.06)
+            }
+
+            66% {
+                transform: translate(-18px, 22px) scale(0.96)
+            }
+        }
+
+        /* CURSOR */
+        .cursor,
+        .cursor-ring {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s;
+        }
+
+        .cursor-ring {
+            width: 32px;
+            height: 32px;
+            border: 1.5px solid rgba(255, 255, 255, 0.75);
+            transition: all 0.1s;
+            z-index: 9998;
+        }
+
+        @media (max-width: 768px) {
+
+            .cursor,
+            .cursor-ring {
+                display: none;
+            }
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            padding: 12px 24px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px) saturate(200%);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 2px 20px var(--shadow-color), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            text-decoration: none;
+        }
+
+        .logo-gem {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #5dd4f4 0%, #00a8cc 45%, #0077a8 100%);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 0 4px 14px var(--shadow-color), inset 0 1.5px 0 rgba(255, 255, 255, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-gem::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            right: 8px;
+            height: 38%;
+            background: rgba(255, 255, 255, 0.42);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .logo-gem svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -0.3px;
+            color: var(--text-dark);
+        }
+
+        .logo-text em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-mid);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        .nav-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: none;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(210, 240, 255, 0.85) 100%);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 0 2px 8px var(--shadow-color), inset 0 1px 0 white;
+            color: var(--blue);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px var(--shadow-color), inset 0 1px 0 white;
+        }
+
+        [data-theme="dark"] .nav-btn {
+            background: linear-gradient(180deg, rgba(50, 70, 100, 0.95) 0%, rgba(30, 50, 80, 0.85) 100%);
+            color: var(--teal);
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            background: var(--btn-g-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 40px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            margin-left: 12px;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            background: var(--btn-g-hover);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(15deg);
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon,
+        .theme-toggle .moon-icon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .moon-icon {
+            display: block;
+        }
+
+        .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        /* Scroll top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--blue), var(--teal));
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 6px 20px var(--shadow-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(8px);
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 28px var(--shadow-color);
+        }
+
+        .scroll-top svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+            transition: transform 0.2s ease;
+        }
+
+        .scroll-top:hover svg {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .scroll-top {
+                width: 44px;
+                height: 44px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .scroll-top svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ho {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .ho1 {
+            width: 280px;
+            height: 280px;
+            right: 5%;
+            top: 12%;
+            background: radial-gradient(circle at 33% 28%, rgba(255, 255, 255, 0.88) 0%, rgba(140, 225, 255, 0.55) 35%, rgba(0, 160, 220, 0.28) 65%, transparent 100%);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            animation: orb 9s ease-in-out infinite;
+        }
+
+        .ho2 {
+            width: 150px;
+            height: 150px;
+            right: 10%;
+            top: 58%;
+            background: radial-gradient(circle at 33% 28%, rgba(255, 255, 255, 0.92) 0%, rgba(110, 240, 200, 0.48) 42%, rgba(0, 180, 150, 0.2) 70%, transparent 100%);
+            border: 1px solid rgba(255, 255, 255, 0.72);
+            animation: orb 7s ease-in-out infinite 1.5s;
+        }
+
+        .ho3 {
+            width: 70px;
+            height: 70px;
+            right: 8%;
+            top: 74%;
+            background: radial-gradient(circle at 33% 28%, rgba(255, 255, 255, 0.97) 0%, rgba(190, 245, 255, 0.55) 50%, transparent 100%);
+            border: 1px solid rgba(255, 255, 255, 0.82);
+            animation: orb 5.5s ease-in-out infinite 3s;
+        }
+
+        [data-theme="dark"] .ho1,
+        [data-theme="dark"] .ho2,
+        [data-theme="dark"] .ho3 {
+            opacity: 0.4;
+        }
+
+        @keyframes orb {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg)
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(2deg)
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            background: var(--hero-pill-bg);
+            border: 1.5px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            padding: 5px 14px 5px 6px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--blue);
+            margin-bottom: 28px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 2px 12px var(--shadow-color), inset 0 1px 0 white;
+            animation: fu 0.7s ease both;
+        }
+
+        .pdot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #5ce89a, #00c48a);
+            border: 2px solid white;
+            box-shadow: 0 2px 7px rgba(0, 165, 120, 0.42);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(44px, 12vw, 86px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            color: var(--text-dark);
+            animation: fu 0.7s ease 0.1s both;
+            text-shadow: 0 2px 20px rgba(0, 80, 140, 0.12);
+        }
+
+        .hero h1 .grad {
+            background: linear-gradient(135deg, var(--blue), var(--teal), var(--teal2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            color: var(--text-mid);
+            margin-top: 20px;
+            line-height: 1.5;
+            font-weight: 600;
+            max-width: 100%;
+            animation: fu 0.7s ease 0.2s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            animation: fu 0.7s ease 0.3s both;
+            flex-wrap: wrap;
+        }
+
+        .btn-p {
+            padding: 12px 24px;
+            border-radius: 26px;
+            border: none;
+            background: linear-gradient(180deg, #1ab8e8 0%, #008ec4 50%, #006ea4 100%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.62);
+            box-shadow: 0 7px 22px rgba(0, 120, 180, 0.46), inset 0 1.5px 0 rgba(255, 255, 255, 0.52), inset 0 -2px 4px rgba(0, 0, 0, 0.12);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.22s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-p:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 120, 180, 0.52), inset 0 1.5px 0 rgba(255, 255, 255, 0.52);
+        }
+
+        .btn-g {
+            padding: 12px 24px;
+            border-radius: 26px;
+            background: var(--btn-g-bg);
+            border: 1.5px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 14px var(--shadow-color), inset 0 1px 0 white;
+            color: var(--text-mid);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.22s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-g:hover {
+            background: var(--btn-g-hover);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fu {
+            from {
+                opacity: 0;
+                transform: translateY(26px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            margin-top: 40px;
+            max-width: 100%;
+            background: var(--stat-bg);
+            border: 1.5px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 8px 24px var(--shadow-color), inset 0 1.5px 0 white;
+            overflow: hidden;
+            animation: fu 0.7s ease 0.4s both;
+        }
+
+        .hs {
+            flex: 1;
+            padding: 16px 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hs+.hs::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 18%;
+            bottom: 18%;
+            width: 1px;
+            background: var(--divider-color);
+        }
+
+        .hs-n {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--blue);
+            letter-spacing: -1px;
+        }
+
+        .hs-l {
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--text-soft);
+            margin-top: 2px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 60px 24px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--blue);
+            margin-bottom: 14px;
+        }
+
+        .el {
+            width: 22px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blue), var(--teal));
+            border-radius: 2px;
+        }
+
+        .sec-title {
+            font-size: clamp(28px, 6vw, 50px);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .sec-title em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--blue), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* FEATURES */
+        .feat-sec {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+        }
+
+        .fg {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 40px;
+        }
+
+        .fc {
+            background: var(--card-bg);
+            backdrop-filter: blur(22px) saturate(160%);
+            border: 1.5px solid var(--card-border);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 6px 24px var(--shadow-color), inset 0 1.5px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fc:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 44px var(--shadow-color), inset 0 1.5px 0 rgba(255, 255, 255, 0.15);
+            background: var(--btn-g-hover);
+        }
+
+        .fg-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .i-teal {
+            background: linear-gradient(145deg, #82eefb, #2ac8e0, #009ec0);
+            border: 1.5px solid rgba(255, 255, 255, 0.75);
+        }
+
+        .i-green {
+            background: linear-gradient(145deg, #a8e8c0, #52cc8a, #28aa6a);
+            border: 1.5px solid rgba(255, 255, 255, 0.75);
+        }
+
+        .i-sky {
+            background: linear-gradient(145deg, #bcecff, #62ccf4, #1ca8e2);
+            border: 1.5px solid rgba(255, 255, 255, 0.75);
+        }
+
+        .ft {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .fd {
+            font-size: 13px;
+            color: var(--text-soft);
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* COMPARISON TABLE */
+        .comp-sec {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+        }
+
+        .comp-table-wrapper {
+            overflow-x: auto;
+            margin-top: 40px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1.5px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+        }
+
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 500px;
+        }
+
+        .comp-table th,
+        .comp-table td {
+            padding: 16px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--divider-color);
+        }
+
+        .comp-table th {
+            font-weight: 800;
+            color: var(--text-dark);
+            background: rgba(0, 0, 0, 0.05);
+            font-size: 15px;
+        }
+
+        [data-theme="dark"] .comp-table th {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .comp-table td:first-child,
+        .comp-table th:first-child {
+            text-align: left;
+            font-weight: 800;
+            color: var(--text-mid);
+        }
+
+        .comp-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .check-mark {
+            color: var(--green);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .cross-mark {
+            color: #e05252;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .vista-highlight {
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.12), rgba(0, 119, 182, 0.08));
+            border-left: 3px solid var(--teal);
+            border-right: 3px solid var(--teal);
+        }
+
+        .comp-price {
+            font-weight: 900;
+            font-size: 18px;
+            color: var(--blue);
+        }
+
+        .comp-price small {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* FAQ */
+        .faq-sec {
+            background: rgba(0, 0, 0, 0.03);
+            backdrop-filter: blur(6px);
+        }
+
+        [data-theme="dark"] .faq-sec {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .faq-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 24px var(--shadow-color);
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            font-weight: 800;
+            font-size: 17px;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .faq-question:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--btn-g-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-soft);
+            font-weight: 600;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 24px 20px 24px;
+            max-height: 300px;
+        }
+
+        /* PRICING */
+        .pr-sec {
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(6px);
+        }
+
+        [data-theme="dark"] .pr-sec {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .pr-center {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .plan-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(30px) saturate(185%);
+            border: 2px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 32px 24px;
+            box-shadow: 0 22px 64px var(--shadow-color), inset 0 2px 0 rgba(255, 255, 255, 0.1), inset 0 -2px 0 rgba(200, 232, 255, 0.1);
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 12%;
+            right: 12%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, white, transparent);
+            opacity: 0.3;
+        }
+
+        .badge-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .plan-badge {
+            background: linear-gradient(145deg, #5ae8a0, #00cc8a, #009968);
+            border: 2px solid rgba(255, 255, 255, 0.82);
+            box-shadow: 0 4px 16px rgba(0, 160, 120, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.52);
+            color: white;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            border-radius: 100px;
+        }
+
+        .pn {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-soft);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .pp {
+            text-align: center;
+            margin: 12px 0 4px;
+        }
+
+        .pp .amt {
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: -4px;
+            color: var(--blue);
+            line-height: 1;
+        }
+
+        .pp .cur {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--blue);
+            vertical-align: top;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .pop {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-soft);
+            font-weight: 700;
+        }
+
+        .pdiv {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text-soft), transparent);
+            margin: 20px 0;
+            opacity: 0.3;
+        }
+
+        .pfl {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .pfl li {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-mid);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cg {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            background: linear-gradient(145deg, #80eba0, #28cc70, #009950);
+            border: 1.5px solid rgba(255, 255, 255, 0.72);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: white;
+        }
+
+        .btn-pay {
+            display: block;
+            width: 100%;
+            margin-top: 28px;
+            padding: 14px;
+            border-radius: 24px;
+            border: none;
+            background: linear-gradient(180deg, #24c8f2 0%, #00acd8 48%, #008ab8 100%);
+            border-top: 2px solid rgba(255, 255, 255, 0.62);
+            box-shadow: 0 8px 26px rgba(0, 120, 180, 0.42), inset 0 1.5px 0 rgba(255, 255, 255, 0.56), inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-align: center;
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-3px);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 28px 24px;
+            background: var(--footer-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1.5px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .fb {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--text-dark);
+        }
+
+        .fb em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .fc2 {
+            font-size: 12px;
+            color: var(--text-soft);
+            font-weight: 700;
+        }
+
+        /* MODALS */
+        .mo {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            transition: background 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+        .mo.active {
+            display: flex;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(18px);
+        }
+
+        .m {
+            background: var(--modal-bg);
+            backdrop-filter: blur(34px) saturate(200%);
+            border: 2px solid var(--glass-border);
+            border-radius: 26px;
+            padding: 32px 24px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 32px 84px var(--shadow-color), inset 0 2px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+
+        .mo.active .m {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .mclose {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffaaaa, #dd4444);
+            border: 1.5px solid rgba(255, 255, 255, 0.72);
+            cursor: pointer;
+            color: white;
+            font-size: 12px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .mclose:hover {
+            transform: scale(1.1);
+        }
+
+        .mt {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .ms {
+            font-size: 13px;
+            color: var(--text-soft);
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .fl {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-soft);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 7px;
+        }
+
+        .fi {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1.5px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            color: var(--text-dark);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            outline: none;
+        }
+
+        .fi:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 160, 220, 0.15);
+            background: var(--btn-g-hover);
+        }
+
+        .fg2 {
+            margin-bottom: 18px;
+        }
+
+        .tgbtn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(180deg, #40bcec 0%, #189acc 50%, #007aaa 100%);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.52);
+            box-shadow: 0 6px 18px rgba(0, 120, 180, 0.36), inset 0 1.5px 0 rgba(255, 255, 255, 0.52);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .fbtn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(180deg, #1ccef2, #009bcc 50%, #0079aa);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.56);
+            box-shadow: 0 6px 18px rgba(0, 120, 180, 0.36), inset 0 1.5px 0 rgba(255, 255, 255, 0.52);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .fsw {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--text-soft);
+            font-weight: 700;
+        }
+
+        .fsw a {
+            color: var(--blue);
+            cursor: pointer;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .pib {
+            background: var(--card-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pibn {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--text-dark);
+        }
+
+        .pibp {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--blue);
+        }
+
+        .yknote {
+            background: rgba(0, 160, 220, 0.08);
+            border: 1.5px solid rgba(0, 160, 220, 0.2);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            color: var(--text-soft);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Code input cells */
+        .code-cell {
+            width: 44px;
+            height: 52px;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--blue);
+            background: var(--input-bg);
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            outline: none;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.18s;
+        }
+
+        .code-cell:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 160, 220, 0.18);
+            background: var(--btn-g-hover);
+            transform: scale(1.05);
+        }
+
+        .code-cell.filled {
+            border-color: rgba(0, 180, 120, 0.5);
+            background: rgba(220, 255, 240, 0.7);
+        }
+
+        [data-theme="dark"] .code-cell.filled {
+            background: rgba(0, 100, 80, 0.5);
+            border-color: var(--green);
+        }
+
+        .code-cell.error {
+            border-color: rgba(220, 60, 60, 0.6);
+            background: rgba(220, 60, 60, 0.2);
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            20% {
+                transform: translateX(-5px)
+            }
+
+            60% {
+                transform: translateX(5px)
+            }
+        }
+
+        #code-inputs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Adaptive */
+        @media(max-width: 768px) {
+            nav {
+                padding: 10px 16px;
+            }
+
+            .nav-links a:first-child,
+            .nav-links a:last-child {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                margin-left: 8px;
+            }
+
+            .hero {
+                padding: 100px 16px 50px;
+            }
+
+            .hero-stats {
+                margin-top: 32px;
+            }
+
+            .hs-n {
+                font-size: 16px;
+            }
+
+            .hs {
+                padding: 12px 8px;
+            }
+
+            section {
+                padding: 50px 16px;
+            }
+
+            .fg {
+                gap: 14px;
+            }
+
+            .fc {
+                padding: 20px;
+            }
+
+            .plan-card {
+                padding: 28px 20px;
+                margin: 0 16px;
+            }
+
+            .pp .amt {
+                font-size: 52px;
+            }
+
+            .pp .cur {
+                font-size: 24px;
+            }
+
+            .m {
+                padding: 24px 20px;
+            }
+
+            .code-cell {
+                width: 40px;
+                height: 48px;
+                font-size: 20px;
+            }
+
+            #code-inputs {
+                gap: 6px;
+            }
+
+            .comp-table th,
+            .comp-table td {
+                padding: 12px 12px;
+                font-size: 12px;
+            }
+
+            .faq-question {
+                padding: 16px 20px;
+                font-size: 15px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 20px 16px 20px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-actions .btn-p,
+            .hero-actions .btn-g {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+            }
+
+            .hs+.hs::before {
+                display: none;
+            }
+
+            .hs {
+                border-top: 1px solid var(--divider-color);
+            }
+
+            .hs:first-child {
+                border-top: none;
+            }
+
+            .code-cell {
+                width: 36px;
+                height: 44px;
+                font-size: 18px;
+            }
+
+            #code-inputs {
+                gap: 5px;
+            }
+
+            .sec-title {
+                font-size: clamp(26px, 7vw, 40px);
+            }
+
+            .comp-table th,
+            .comp-table td {
+                padding: 8px 8px;
+                font-size: 11px;
+            }
+
+            .comp-price {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="page-bg"></div>
-<div class="bk bk1"></div><div class="bk bk2"></div><div class="bk bk3"></div><div class="bk bk4"></div>
+    <div class="page-bg"></div>
+    <div class="bk bk1"></div>
+    <div class="bk bk2"></div>
+    <div class="bk bk3"></div>
+    <div class="bk bk4"></div>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="logo">
-    <div class="logo-gem">
-      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-    </div>
-    <span class="logo-text">Vista <em>VPN</em></span>
-  </a>
-  <div class="nav-links">
-    <a href="#features">Возможности</a>
-    <a href="#pricing">Тариф</a>
-    <button class="nav-btn" onclick="openLogin()">Купить</button>
-    <!-- Кнопка переключения темы -->
-    <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
-      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/>
-        <line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/>
-        <line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="ho ho1"></div>
-  <div class="ho ho2"></div>
-  <div class="ho ho3"></div>
-  <div class="hero-content">
-    <div class="hero-pill"><div class="pdot">🌿</div> Серверы онлайн · Нидерланды</div>
-    <h1>Свобода<br><span class="grad">в сети.</span></h1>
-    <p class="hero-sub">VPN нового поколения — чистый, быстрый, настоящий. Управляй прямо из Telegram.</p>
-    <div class="hero-actions">
-      <a href="https://t.me/viistavpn_bot" class="btn-p">✦ Открыть в Telegram</a>
-      <a href="#pricing" class="btn-g">Смотреть тариф</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hs"><div class="hs-n">Стабильное подключение</div><div class="hs-l"></div></div>
-      <div class="hs"><div class="hs-n">NL</div><div class="hs-l">сервер</div></div>
-      <div class="hs"><div class="hs-n">Без рекламы</div><div class="hs-l"></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features" class="feat-sec">
-  <div class="eyebrow"><div class="el"></div> Возможности</div>
-  <h2 class="sec-title">Почему Vista <em>VPN</em></h2>
-  <div class="fg">
-    <div class="fc"><div class="fg-icon i-teal">🛡️</div><div class="ft">WireGuard протокол</div><div class="fd">Современное шифрование. Скорость и безопасность без компромиссов.</div></div>
-    <div class="fc"><div class="fg-icon i-green">⚡</div><div class="ft">Высокая скорость</div><div class="fd">Выделенный сервер в Нидерландах. Видео, работа — без задержек.</div></div>
-    <div class="fc"><div class="fg-icon i-sky">🤖</div><div class="ft">Управление в Telegram</div><div class="fd">Получите ключ подключения прямо в боте. Никаких лишних приложений.</div></div>
-    <div class="fc"><div class="fg-icon i-green">🌍</div><div class="ft">Стабильный сервер</div><div class="fd">Нидерланды — оптимальный сервер для любых задач. Стабильно 24/7.</div></div>
-    <div class="fc"><div class="fg-icon i-sky">📱</div><div class="ft">Все устройства</div><div class="fd">iOS, Android, Windows, macOS, Linux — до 3 устройств одновременно.</div></div>
-    <div class="fc"><div class="fg-icon i-teal">🔒</div><div class="ft">No-log политика</div><div class="fd">Мы не храним логи вашей активности. Полная анонимность гарантирована.</div></div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section id="pricing" class="pr-sec">
-  <div style="text-align:center">
-    <div class="eyebrow" style="justify-content:center"><div class="el"></div> Тариф <div class="el"></div></div>
-    <h2 class="sec-title">Один план — <em>всё включено</em></h2>
-  </div>
-  <div class="pr-center">
-    <div class="plan-card">
-      <div class="badge-wrap"><div class="plan-badge">Скидка 30%</div></div>
-      <div class="pn">1 Месяц</div>
-      <div class="pp"><span class="cur">₽</span><span class="amt">70</span></div>
-      <div class="pop">Цена без скидки: <s>100₽</s></div>
-      <div class="pdiv"></div>
-      <ul class="pfl">
-        <li><div class="cg">✓</div> 3 устройства одновременно</li>
-        <li><div class="cg">✓</div> WireGuard шифрование</li>
-        <li><div class="cg">✓</div> Сервер в Нидерландах</li>
-        <li><div class="cg">✓</div> Безлимитный трафик</li>
-        <li><div class="cg">✓</div> Поддержка 24/7</li>
-      </ul>
-      <button class="btn-pay" onclick="openPay('1 Месяц','70')">💳 Оплатить 70₽</button>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="fb">Vista <em>VPN</em></div>
-  <div class="fc2">© 2026 Vista VPN · Все права защищены</div>
-</footer>
-
-<!-- LOGIN MODAL -->
-<div class="mo" id="loginModal">
-  <div class="m">
-    <button class="mclose" onclick="closeModals()">✕</button>
-    <div id="auth-step1">
-      <div style="text-align:center;margin-bottom:28px">
-        <div style="width:60px;height:60px;border-radius:16px;background:linear-gradient(145deg,#82ecfc,#00b8dc,#0079b0);border:2px solid rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;">🔐</div>
-        <div class="mt" style="margin-bottom:6px">Оплатить через Telegram</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
-        <div style="display:flex;align-items:center;gap:14px;background:var(--card-bg);border:1.5px solid var(--glass-border);border-radius:14px;padding:12px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,#5ce8f8,#00b0d8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white;">1</div>
-          <div style="font-size:13px;font-weight:700;color:var(--text-mid);">Откройте бота <strong>@viistavpn_bot</strong></div>
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-gem">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+            </div>
+            <span class="logo-text">Vista <em>VPN</em></span>
+        </a>
+        <div class="nav-links">
+            <a href="#features">Возможности</a>
+            <a href="#comparison">Сравнение</a>
+            <a href="#faq">FAQ</a>
+            <a href="#pricing">Тариф</a>
+            <button class="nav-btn" onclick="openLogin()">Купить</button>
+            <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </div>
         </div>
-        <div style="display:flex;align-items:center;gap:14px;background:var(--card-bg);border:1.5px solid var(--glass-border);border-radius:14px;padding:12px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,#5ce8f8,#00b0d8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white;">2</div>
-          <div style="font-size:13px;font-weight:700;color:var(--text-mid);">Нажмите кнопку <strong>купить</strong> в меню</div>
+    </nav>
+
+    <!-- Scroll Top Button -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="ho ho1"></div>
+        <div class="ho ho2"></div>
+        <div class="ho ho3"></div>
+        <div class="hero-content">
+            <div class="hero-pill">
+                <div class="pdot">🌿</div> Серверы онлайн · Нидерланды
+            </div>
+            <h1>Свобода<br><span class="grad">в сети.</span></h1>
+            <p class="hero-sub">VPN нового поколения — чистый, быстрый, настоящий. Управляй прямо из Telegram.</p>
+            <div class="hero-actions">
+                <a href="https://t.me/viistavpn_bot" class="btn-p">✦ Открыть в Telegram</a>
+                <a href="#pricing" class="btn-g">Смотреть тариф</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hs">
+                    <div class="hs-n">Стабильное подключение</div>
+                    <div class="hs-l"></div>
+                </div>
+                <div class="hs">
+                    <div class="hs-n">NL</div>
+                    <div class="hs-l">сервер</div>
+                </div>
+                <div class="hs">
+                    <div class="hs-n">Без рекламы</div>
+                    <div class="hs-l"></div>
+                </div>
+            </div>
         </div>
-        <div style="display:flex;align-items:center;gap:14px;background:var(--card-bg);border:1.5px solid var(--glass-border);border-radius:14px;padding:12px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,#5ce8f8,#00b0d8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white;">3</div>
-          <div style="font-size:13px;font-weight:700;color:var(--text-mid);">После оплаты бот вышлет инструкцию</div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="feat-sec">
+        <div class="eyebrow">
+            <div class="el"></div> Возможности
         </div>
-      </div>
-      <a href="https://t.me/viistavpn_bot?start=login" target="_blank" class="tgbtn">✈️ Открыть @viistavpn_bot</a>
+        <h2 class="sec-title">Почему Vista <em>VPN</em></h2>
+        <div class="fg">
+            <div class="fc">
+                <div class="fg-icon i-teal">🛡️</div>
+                <div class="ft">WireGuard протокол</div>
+                <div class="fd">Современное шифрование. Скорость и безопасность без компромиссов.</div>
+            </div>
+            <div class="fc">
+                <div class="fg-icon i-green">⚡</div>
+                <div class="ft">Высокая скорость</div>
+                <div class="fd">Выделенный сервер в Нидерландах. Видео, работа — без задержек.</div>
+            </div>
+            <div class="fc">
+                <div class="fg-icon i-sky">🤖</div>
+                <div class="ft">Управление в Telegram</div>
+                <div class="fd">Получите ключ подключения прямо в боте. Никаких лишних приложений.</div>
+            </div>
+            <div class="fc">
+                <div class="fg-icon i-green">🌍</div>
+                <div class="ft">Стабильный сервер</div>
+                <div class="fd">Нидерланды — оптимальный сервер для любых задач. Стабильно 24/7.</div>
+            </div>
+            <div class="fc">
+                <div class="fg-icon i-sky">📱</div>
+                <div class="ft">Все устройства</div>
+                <div class="fd">iOS, Android, Windows, macOS, Linux — до 3 устройств одновременно.</div>
+            </div>
+            <div class="fc">
+                <div class="fg-icon i-teal">🔒</div>
+                <div class="ft">No-log политика</div>
+                <div class="fd">Мы не храним логи вашей активности. Полная анонимность гарантирована.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section id="comparison" class="comp-sec">
+        <div class="eyebrow">
+            <div class="el"></div> Сравнение
+        </div>
+        <h2 class="sec-title"><em>Vista VPN</em> vs другие vpn</h2>
+        <div class="comp-table-wrapper">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Характеристика</th>
+                        <th>Vista VPN</th>
+                        <th>Klex VPN</th>
+                        <th>Durev VPN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>💰 Цена за месяц</td>
+                        <td class="vista-highlight"><span class="comp-price">70 ₽</span></td>
+                        <td>350 ₽</td>
+                        <td>375 ₽</td>
+                    </tr>
+                    <tr>
+                        <td>💳 Бесплатный пробный период</td>
+                        <td class="vista-highlight"><span class="check-mark">✓</span> 4 дня</td>
+                        <td>30 дней</td>
+                        <td>1 день (за 10 ₽)</td>
+                    </tr>
+                    <tr>
+                        <td>Скорость</td>
+                        <td class="vista-highlight"><span class="check-mark">✓</span> 65-70 мбит в секунду</td>
+                        <td>30-40 мбит</td>
+                        <td>50-55 мбит</td>
+                    </tr>
+                    <tr>
+                        <td>Подключение к серверу</td>
+                        <td class="vista-highlight"><span class="check-mark">✓</span> 0,3-1 сек</td>
+                        <td>2-5 сек</td>
+                        <td>3-5 сек</td>
+                    </tr>
+                    <tr>
+                        <td>Итоговое кол-во баллов</td>
+                        <td class="vista-highlight">7/8</td>
+                        <td>4/8</td>
+                        <td>1/8</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-soft);">
+            * 3 место - 0 баллов; 2 место - 1 балл; 1 место - 2 балла
+        </div>
+    </section>
+
+   
+
+    <!-- PRICING -->
+    <section id="pricing" class="pr-sec">
+        <div style="text-align:center">
+            <div class="eyebrow" style="justify-content:center">
+                <div class="el"></div> Тариф <div class="el"></div>
+            </div>
+            <h2 class="sec-title">Один план — <em>всё включено</em></h2>
+        </div>
+        <div class="pr-center">
+            <div class="plan-card">
+                <div class="badge-wrap">
+                    <div class="plan-badge">Скидка 30%</div>
+                </div>
+                <div class="pn">1 Месяц</div>
+                <div class="pp"><span class="cur">₽</span><span class="amt">70</span></div>
+                <div class="pop">Цена без скидки: <s>100₽</s></div>
+                <div class="pdiv"></div>
+                <ul class="pfl">
+                    <li>
+                        <div class="cg">✓</div> 3 устройства одновременно
+                    </li>
+                    <li>
+                        <div class="cg">✓</div> WireGuard шифрование
+                    </li>
+                    <li>
+                        <div class="cg">✓</div> Сервер в Нидерландах
+                    </li>
+                    <li>
+                        <div class="cg">✓</div> Безлимитный трафик
+                    </li>
+                    <li>
+                        <div class="cg">✓</div> Поддержка 24/7
+                    </li>
+                </ul>
+                <button class="btn-pay" onclick="openPay('1 Месяц','70')">💳 Оплатить 70₽</button>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- FAQ -->
+    <section id="faq" class="faq-sec">
+        <div class="eyebrow">
+            <div class="el"></div> Вопросы и ответы
+        </div>
+        <h2 class="sec-title">Часто <em>спрашивают</em></h2>
+        <div class="faq-grid">
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>💳 Как оплатить и получить ключ?</span>
+                    <div class="faq-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Оплата происходит через Telegram-бота @viistavpn_bot. После оплаты, администратор проверит её, и вышлет вам
+                    конфиг для подключения.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>⚡ Какая скорость соединения?</span>
+                    <div class="faq-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Средняя скорость соеденения составляет примерно 65-70 мбит.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>📱 На скольких устройствах можно использовать?</span>
+                    <div class="faq-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Максимум можно использоввать до 3-х устройств. Установите на роутер, телефон и ноутбук, и наслаждайтесь просмотром того, что не доступно без VPN.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>🛡️ Безопасно ли использовать Vista VPN?</span>
+                    <div class="faq-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Да! Ваше подключение полностью анонимно. Мы используем строгую no-log политику, поэтому Вы можете не беспокоиться о вашей безопасности. 
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>🎬 Подходит ли для Instagram, YouTube, TikTok?</span>
+                    <div class="faq-icon">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Конечно! Вы можете использовать наш VPN для просмотра Instagram, Youtube и Tiktok.
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <footer>
+        <div class="fb">Vista <em>VPN</em></div>
+        <div class="fc2">© 2026 Vista VPN · Все права защищены</div>
+    </footer>
+    <!-- LOGIN MODAL -->
+    <div class="mo" id="loginModal">
+        <div class="m">
+            <button class="mclose" onclick="closeModals()">✕</button>
+            <div id="auth-step1">
+                <div style="text-align:center;margin-bottom:28px">
+                    <div
+                        style="width:60px;height:60px;border-radius:16px;background:linear-gradient(145deg,#82ecfc,#00b8dc,#0079b0);border:2px solid rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;">
+                        🔐</div>
+                    <div class="mt" style="margin-bottom:6px">Оплатить через Telegram</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+                    <div
+                        style="display:flex;align-items:center;gap:14px;background:var(--card-bg);border:1.5px solid var(--glass-border);border-radius:14px;padding:12px;">
+                        <div
+                            style="width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,#5ce8f8,#00b0d8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white;">
+                            1</div>
+                        <div style="font-size:13px;font-weight:700;color:var(--text-mid);">Откройте бота
+                            <strong>@viistavpn_bot</strong></div>
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:14px;background:var(--card-bg);border:1.5px solid var(--glass-border);border-radius:14px;padding:12px;">
+                        <div
+                            style="width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,#5ce8f8,#00b0d8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white;">
+                            2</div>
+                        <div style="font-size:13px;font-weight:700;color:var(--text-mid);">Нажмите кнопку
+                            <strong>купить</strong> в меню</div>
+                    </div>
+                    <div
+                        style="display:flex;align-items:center;gap:14px;background:var(--card-bg);border:1.5px solid var(--glass-border);border-radius:14px;padding:12px;">
+                        <div
+                            style="width:28px;height:28px;border-radius:8px;background:linear-gradient(145deg,#5ce8f8,#00b0d8);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white;">
+                            3</div>
+                        <div style="font-size:13px;font-weight:700;color:var(--text-mid);">После оплаты бот вышлет
+                            инструкцию</div>
+                    </div>
+                </div>
+                <a href="https://t.me/viistavpn_bot?start=login" target="_blank" class="tgbtn">✈️ Открыть
+                    @viistavpn_bot</a>
+            </div>
+            <div id="auth-step2" style="display:none">
+                <div style="text-align:center;margin-bottom:28px">
+                    <div style="font-size:44px;margin-bottom:14px">🔑</div>
+                    <div class="mt" style="margin-bottom:6px">Введите код</div>
+                    <div class="ms">Код из бота действует 5 минут</div>
+                </div>
+                <div id="code-inputs"
+                    style="display:flex;gap:8px;justify-content:center;margin-bottom:10px;flex-wrap:wrap;">
+                    <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                </div>
+                <div id="code-error"
+                    style="text-align:center;font-size:12px;color:#e05252;font-weight:700;min-height:20px;margin-bottom:12px">
+                </div>
+                <button class="fbtn" id="verify-btn" onclick="verifyCode()">Купить →</button>
+                <div class="fsw"><a onclick="goToStep1()">← Назад</a> · <a onclick="goToStep1()">Получить новый код</a>
+                </div>
+            </div>
+            <div id="auth-step3" style="display:none;text-align:center;padding:16px 0">
+                <div style="font-size:52px;margin-bottom:16px">🌊</div>
+                <div class="mt" style="margin-bottom:8px">Добро пожаловать!</div>
+                <div class="ms" style="margin-bottom:28px" id="success-msg">Вы успешно вошли в Vista VPN</div>
+                <button class="fbtn" onclick="goToCabinet()">Перейти в кабинет →</button>
+            </div>
+        </div>
     </div>
-    <div id="auth-step2" style="display:none">
-      <div style="text-align:center;margin-bottom:28px">
-        <div style="font-size:44px;margin-bottom:14px">🔑</div>
-        <div class="mt" style="margin-bottom:6px">Введите код</div>
-        <div class="ms">Код из бота действует 5 минут</div>
-      </div>
-      <div id="code-inputs" style="display:flex;gap:8px;justify-content:center;margin-bottom:10px;flex-wrap:wrap;">
-        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
-        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
-        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
-        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
-        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
-        <input class="code-cell" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
-      </div>
-      <div id="code-error" style="text-align:center;font-size:12px;color:#e05252;font-weight:700;min-height:20px;margin-bottom:12px"></div>
-      <button class="fbtn" id="verify-btn" onclick="verifyCode()">Купить →</button>
-      <div class="fsw"><a onclick="goToStep1()">← Назад</a> · <a onclick="goToStep1()">Получить новый код</a></div>
+
+    <!-- PAY MODAL -->
+    <div class="mo" id="payModal">
+        <div class="m">
+            <button class="mclose" onclick="closeModals()">✕</button>
+            <div class="mt">Оплата</div>
+            <div class="ms">Безопасная оплата через ЮKassa</div>
+            <div class="pib">
+                <div>
+                    <div class="cc-l" style="margin-bottom:4px">Тариф</div>
+                    <div class="pibn" id="ppn">1 Месяц</div>
+                </div>
+                <div class="pibp" id="ppp">70₽</div>
+            </div>
+            <div class="yknote">🔒 Оплата защищена ЮKassa. Данные карты не передаются третьим лицам.</div>
+            <div class="fg2"><label class="fl">Email для чека</label><input type="email" class="fi"
+                    placeholder="you@example.com" id="payEmail"></div>
+            <button class="fbtn" onclick="processPayment()">Перейти к оплате →</button>
+            <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--text-soft);font-weight:700">Visa ·
+                Mastercard · МИР · СБП</div>
+        </div>
     </div>
-    <div id="auth-step3" style="display:none;text-align:center;padding:16px 0">
-      <div style="font-size:52px;margin-bottom:16px">🌊</div>
-      <div class="mt" style="margin-bottom:8px">Добро пожаловать!</div>
-      <div class="ms" style="margin-bottom:28px" id="success-msg">Вы успешно вошли в Vista VPN</div>
-      <button class="fbtn" onclick="goToCabinet()">Перейти в кабинет →</button>
-    </div>
-  </div>
-</div>
 
-<!-- PAY MODAL -->
-<div class="mo" id="payModal">
-  <div class="m">
-    <button class="mclose" onclick="closeModals()">✕</button>
-    <div class="mt">Оплата</div>
-    <div class="ms">Безопасная оплата через ЮKassa</div>
-    <div class="pib">
-      <div><div class="cc-l" style="margin-bottom:4px">Тариф</div><div class="pibn" id="ppn">1 Месяц</div></div>
-      <div class="pibp" id="ppp">70₽</div>
-    </div>
-    <div class="yknote">🔒 Оплата защищена ЮKassa. Данные карты не передаются третьим лицам.</div>
-    <div class="fg2"><label class="fl">Email для чека</label><input type="email" class="fi" placeholder="you@example.com" id="payEmail"></div>
-    <button class="fbtn" onclick="processPayment()">Перейти к оплате →</button>
-    <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--text-soft);font-weight:700">Visa · Mastercard · МИР · СБП</div>
-  </div>
-</div>
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 
-<script>
-// Функция переключения темы
-function toggleTheme() {
-  const html = document.documentElement;
-  const currentTheme = html.getAttribute('data-theme');
-  
-  if (currentTheme === 'dark') {
-    html.removeAttribute('data-theme');
-    localStorage.setItem('theme', 'light');
-  } else {
-    html.setAttribute('data-theme', 'dark');
-    localStorage.setItem('theme', 'dark');
-  }
-}
+        // Scroll to top
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        window.addEventListener('scroll', function () {
+            const scrollBtn = document.getElementById('scrollTop');
+            if (window.scrollY > 300) scrollBtn.classList.add('show');
+            else scrollBtn.classList.remove('show');
+        });
 
-// Загрузка сохранённой темы при старте
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-  document.documentElement.setAttribute('data-theme', 'dark');
-}
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+        }
 
-const CONFIG = { DEMO_MODE: true };
-let currentUser = JSON.parse(localStorage.getItem('vista_user') || 'null');
-if(currentUser) updateNav(currentUser);
+        const CONFIG = { DEMO_MODE: true };
+        let currentUser = JSON.parse(localStorage.getItem('vista_user') || 'null');
+        if (currentUser) updateNav(currentUser);
 
-function saveUser(u){ currentUser=u; localStorage.setItem('vista_user', JSON.stringify(u)); }
-function clearUser(){ currentUser=null; localStorage.removeItem('vista_user'); }
+        function saveUser(u) { currentUser = u; localStorage.setItem('vista_user', JSON.stringify(u)); }
+        function clearUser() { currentUser = null; localStorage.removeItem('vista_user'); }
 
-function openLogin(){ goToStep1(); document.getElementById('loginModal').classList.add('active'); }
-function openPay(plan, price){
-  if(!currentUser){ openLogin(); return; }
-  document.getElementById('ppn').textContent = plan;
-  document.getElementById('ppp').textContent = price+'₽';
-  document.getElementById('payModal').classList.add('active');
-}
-function closeModals(){ document.querySelectorAll('.mo').forEach(m => m.classList.remove('active')); }
-document.querySelectorAll('.mo').forEach(o => o.addEventListener('click', e => { if(e.target===o) closeModals(); }));
+        function openLogin() { goToStep1(); document.getElementById('loginModal').classList.add('active'); }
+        function openPay(plan, price) {
+            if (!currentUser) { openLogin(); return; }
+            document.getElementById('ppn').textContent = plan;
+            document.getElementById('ppp').textContent = price + '₽';
+            document.getElementById('payModal').classList.add('active');
+        }
+        function closeModals() { document.querySelectorAll('.mo').forEach(m => m.classList.remove('active')); }
+        document.querySelectorAll('.mo').forEach(o => o.addEventListener('click', e => { if (e.target === o) closeModals(); }));
 
-function goToStep1(){
-  document.getElementById('auth-step1').style.display = '';
-  document.getElementById('auth-step2').style.display = 'none';
-  document.getElementById('auth-step3').style.display = 'none';
-  clearCodeCells();
-}
-function goToStep2(){
-  document.getElementById('auth-step1').style.display = 'none';
-  document.getElementById('auth-step2').style.display = '';
-  document.getElementById('auth-step3').style.display = 'none';
-  setTimeout(() => document.querySelectorAll('.code-cell')[0]?.focus(), 50);
-}
-function goToStep3(user){
-  document.getElementById('auth-step1').style.display = 'none';
-  document.getElementById('auth-step2').style.display = 'none';
-  document.getElementById('auth-step3').style.display = '';
-  document.getElementById('success-msg').textContent = 'Добро пожаловать, ' + user.name + '!';
-}
-function clearCodeCells(){
-  document.querySelectorAll('.code-cell').forEach(c => { c.value=''; c.classList.remove('filled','error'); });
-  document.getElementById('code-error').textContent = '';
-}
-function getCode(){ return Array.from(document.querySelectorAll('.code-cell')).map(c=>c.value).join(''); }
-function setError(msg){
-  document.getElementById('code-error').textContent = msg;
-  document.querySelectorAll('.code-cell').forEach(c => c.classList.add('error'));
-  setTimeout(() => document.querySelectorAll('.code-cell').forEach(c => c.classList.remove('error')), 600);
-}
-async function verifyCode(){
-  const code = getCode();
-  if(code.length < 6){ setError('Введите все 6 цифр'); return; }
-  const btn = document.getElementById('verify-btn');
-  btn.textContent = 'Проверяем...';
-  btn.classList.add('verify-loading');
-  if(CONFIG.DEMO_MODE){
-    await new Promise(r => setTimeout(r, 900));
-    const demoUser = { tg_id: 123456, name: 'Пользователь', username: null };
-    saveUser(demoUser);
-    updateNav(demoUser);
-    goToStep3(demoUser);
-  } else {
-    setError('Демо-режим. Для реальной работы настройте API.');
-  }
-  btn.textContent = 'Купить →';
-  btn.classList.remove('verify-loading');
-}
-function updateNav(user){
-  const btn = document.querySelector('.nav-btn');
-  if(btn){ btn.textContent = '👤 ' + (user.name ? user.name.split(' ')[0] : 'Кабинет'); btn.onclick = () => { if(confirm('Выйти?')){ clearUser(); location.reload(); } }; }
-}
-function goToCabinet(){ closeModals(); alert('Кабинет в разработке. Ваш ключ VPN придёт в Telegram.'); }
-function processPayment(){
-  const email = document.getElementById('payEmail')?.value;
-  if(!email){ alert('Введите email для чека'); return; }
-  alert('Демо-режим: оплата не обрабатывается. В реальном проекте подключите ЮKassa.');
-  closeModals();
-}
+        function goToStep1() {
+            document.getElementById('auth-step1').style.display = '';
+            document.getElementById('auth-step2').style.display = 'none';
+            document.getElementById('auth-step3').style.display = 'none';
+            clearCodeCells();
+        }
+        function goToStep2() {
+            document.getElementById('auth-step1').style.display = 'none';
+            document.getElementById('auth-step2').style.display = '';
+            document.getElementById('auth-step3').style.display = 'none';
+            setTimeout(() => document.querySelectorAll('.code-cell')[0]?.focus(), 100);
+        }
+        function goToStep3(user) {
+            document.getElementById('auth-step1').style.display = 'none';
+            document.getElementById('auth-step2').style.display = 'none';
+            document.getElementById('auth-step3').style.display = '';
+            document.getElementById('success-msg').textContent = 'Добро пожаловать, ' + user.name + '!';
+        }
+        function clearCodeCells() {
+            document.querySelectorAll('.code-cell').forEach(c => { c.value = ''; c.classList.remove('filled', 'error'); });
+            document.getElementById('code-error').textContent = '';
+        }
+        function getCode() { return Array.from(document.querySelectorAll('.code-cell')).map(c => c.value).join(''); }
+        function setError(msg) {
+            document.getElementById('code-error').textContent = msg;
+            document.querySelectorAll('.code-cell').forEach(c => c.classList.add('error'));
+            setTimeout(() => document.querySelectorAll('.code-cell').forEach(c => c.classList.remove('error')), 600);
+        }
+        async function verifyCode() {
+            const code = getCode();
+            if (code.length < 6) { setError('Введите все 6 цифр'); return; }
+            const btn = document.getElementById('verify-btn');
+            btn.textContent = 'Проверяем...';
+            btn.classList.add('verify-loading');
+            if (CONFIG.DEMO_MODE) {
+                await new Promise(r => setTimeout(r, 900));
+                const demoUser = { tg_id: 123456, name: 'Пользователь', username: null };
+                saveUser(demoUser);
+                updateNav(demoUser);
+                goToStep3(demoUser);
+            } else {
+                setError('Демо-режим. Для реальной работы настройте API.');
+            }
+            btn.textContent = 'Купить →';
+            btn.classList.remove('verify-loading');
+        }
+        function updateNav(user) {
+            const btn = document.querySelector('.nav-btn');
+            if (btn) {
+                btn.textContent = '👤 ' + (user.name ? user.name.split(' ')[0] : 'Кабинет');
+                btn.onclick = () => { if (confirm('Выйти из аккаунта?')) { clearUser(); location.reload(); } };
+            }
+        }
+        function goToCabinet() { closeModals(); alert('Кабинет в разработке. Ваш ключ VPN придёт в Telegram.'); }
+        function processPayment() {
+            const email = document.getElementById('payEmail')?.value;
+            if (!email) { alert('Введите email для чека'); return; }
+            alert('Демо-режим: оплата не обрабатывается. В реальном проекте подключите ЮKassa.');
+            closeModals();
+        }
 
-// Курсор
-const cur = document.getElementById('cursor'), ring = document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; if(cur){ cur.style.left=mx+'px'; cur.style.top=my+'px'; } });
-(function loop(){ rx+=(mx-rx)*0.1; ry+=(my-ry)*0.1; if(ring){ ring.style.left=rx+'px'; ring.style.top=ry+'px'; } requestAnimationFrame(loop); })();
+        // Cursor
+        const cur = document.getElementById('cursor'), ring = document.getElementById('cursorRing');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        if (cur && ring) {
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; });
+            (function loop() { rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop); })();
+        }
 
-document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-  const t = document.querySelector(a.getAttribute('href'));
-  if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
-}));
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+        }));
 
-document.addEventListener('DOMContentLoaded', () => {
-  const cells = document.querySelectorAll('.code-cell');
-  cells.forEach((cell, i) => {
-    cell.addEventListener('input', e => {
-      cell.value = cell.value.replace(/\D/g,'').slice(-1);
-      if(cell.value) { cell.classList.add('filled'); cell.classList.remove('error');
-        if(i < cells.length-1) cells[i+1].focus();
-        if(i === cells.length-1) setTimeout(verifyCode, 120);
-      } else { cell.classList.remove('filled'); }
-    });
-    cell.addEventListener('keydown', e => {
-      if(e.key==='Backspace' && !cell.value && i>0){ cells[i-1].focus(); cells[i-1].value=''; cells[i-1].classList.remove('filled'); }
-      if(e.key==='Enter') verifyCode();
-    });
-    cell.addEventListener('paste', e => {
-      e.preventDefault();
-      const paste = (e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);
-      cells.forEach((c,j) => { if(paste[j]){ c.value=paste[j]; c.classList.add('filled'); } });
-      cells[Math.min(paste.length, cells.length-1)].focus();
-      if(paste.length===6) setTimeout(verifyCode, 120);
-    });
-  });
-});
-</script>
+        // Code inputs
+        document.addEventListener('DOMContentLoaded', () => {
+            const cells = document.querySelectorAll('.code-cell');
+            cells.forEach((cell, i) => {
+                cell.addEventListener('input', e => {
+                    cell.value = cell.value.replace(/\D/g, '').slice(-1);
+                    if (cell.value) {
+                        cell.classList.add('filled'); cell.classList.remove('error');
+                        if (i < cells.length - 1) cells[i + 1].focus();
+                        if (i === cells.length - 1) setTimeout(verifyCode, 120);
+                    } else { cell.classList.remove('filled'); }
+                });
+                cell.addEventListener('keydown', e => {
+                    if (e.key === 'Backspace' && !cell.value && i > 0) { cells[i - 1].focus(); cells[i - 1].value = ''; cells[i - 1].classList.remove('filled'); }
+                    if (e.key === 'Enter') verifyCode();
+                });
+                cell.addEventListener('paste', e => {
+                    e.preventDefault();
+                    const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+                    cells.forEach((c, j) => { if (paste[j]) { c.value = paste[j]; c.classList.add('filled'); } });
+                    cells[Math.min(paste.length, cells.length - 1)].focus();
+                    if (paste.length === 6) setTimeout(verifyCode, 120);
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
