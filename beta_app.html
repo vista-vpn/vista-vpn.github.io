@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #f5f5f5;
+            padding: 40px 20px 80px 20px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .card {
+            background-color: #dbdbdb;
+            border: 2px solid #000;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .data-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .key-container {
+            background-color: #c7c7c7;
+            padding: 10px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            word-break: break-all;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .key-container:active {
+            opacity: 0.7;
+        }
+
+        .copy-hint {
+            font-size: 12px;
+            color: #555;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        /* Навигация */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 360px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item.active {
+            background-color: #d1d1d1;
+            border: 2px solid #000;
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            stroke: #000;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Управление вкладками */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+</head>
+
+<body>
+
+    <div class="app-container">
+        <h1 id="greeting">Здравствуйте,<br>[Имя]</h1>
+
+        <div id="tab-home" class="tab-content active">
+            <div class="card">
+                <div class="card-title">До конца подписки осталось:</div>
+                <div class="data-display">[30] дней</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Ваш ключ:</div>
+                <div class="key-container" onclick="copyKey()">
+                    <span id="vpn-key">ss://[********************************]</span>
+                </div>
+                <div class="copy-hint">Нажмите на ключ, чтобы скопировать</div>
+            </div>
+        </div>
+
+        <div id="tab-link" class="tab-content">
+            <div class="card">
+                <div class="card-title">Инструкция по подключению:</div>
+                <p style="font-size: 14px; margin-bottom: 10px;">1. Скопируйте ваш ключ на главном экране.</p>
+                <p style="font-size: 14px; margin-bottom: 10px;">2. Скачайте приложение Outline, V2Ray или аналог.</p>
+                <p style="font-size: 14px;">3. Вставьте ключ в приложение.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">Статус серверов:</div>
+                <p style="font-size: 14px; color: green;">● Сервер Frankfurt - Онлайн</p>
+            </div>
+        </div>
+
+        <div id="tab-profile" class="tab-content">
+            <div class="card">
+                <div class="card-title">Личные данные:</div>
+                <p style="font-size: 14px; margin-bottom: 5px;">Email: user@example.com</p>
+                <p style="font-size: 14px;">ID: #948274</p>
+            </div>
+            <div class="card"
+                style="text-align: center; cursor: pointer; background-color: #ffcccc; border-color: #cc0000;">
+                <div class="card-title" style="color: #cc0000; margin: 0;">Выйти из аккаунта</div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchTab('home', this)">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </div>
+            <div class="nav-item" onclick="switchTab('link', this)">
+                <svg viewBox="0 0 24 24">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+            </div>
+            <div class="nav-item" onclick="switchTab('profile', this)">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция копирования ключа
+        function copyKey() {
+            const keyText = document.getElementById('vpn-key').innerText;
+            navigator.clipboard.writeText(keyText).then(() => {
+                alert("Ключ скопирован в буфер обмена!");
+            }).catch(err => {
+                console.error('Ошибка при копировании: ', err);
+            });
+        }
+
+        // Функция переключения вкладок
+        function switchTab(tabId, element) {
+            // Скрываем все вкладки
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Убираем активный класс со всех иконок
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Показываем нужную вкладку и делаем иконку активной
+            document.getElementById('tab-' + tabId).classList.add('active');
+            element.classList.add('active');
+
+            // Меняем заголовок в зависимости от вкладки
+            const greeting = document.getElementById('greeting');
+            if (tabId === 'home') greeting.innerHTML = 'Здравствуйте,<br>[Имя]';
+            if (tabId === 'link') greeting.innerHTML = 'Настройки сети';
+            if (tabId === 'profile') greeting.innerHTML = 'Ваш профиль';
+        }
+    </script>
+
+    <script>
+        // Сообщаем Telegram, что приложение готово, и разворачиваем его
+        window.Telegram.WebApp.ready();
+        window.Telegram.WebApp.expand();
+    </script>
+
+</body>
+
+</html>
