@@ -808,6 +808,182 @@
             font-weight: 600;
         }
 
+        /* DOWNLOAD APP SECTION (НОВЫЙ БЛОК) */
+        .download-sec {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 32px;
+            border: 1.5px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px var(--shadow-color), inset 0 1.5px 0 rgba(255, 255, 255, 0.1);
+            padding: 50px 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .download-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 28px 56px var(--shadow-color), inset 0 1.5px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .download-header {
+            margin-bottom: 20px;
+        }
+
+        .download-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(145deg, var(--teal), var(--blue));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .download-icon svg {
+            width: 44px;
+            height: 44px;
+            stroke: white;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .download-title {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .download-title span {
+            background: linear-gradient(135deg, var(--blue), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .download-desc {
+            font-size: 14px;
+            color: var(--text-soft);
+            font-weight: 600;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .download-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .download-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--btn-g-bg);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-mid);
+        }
+
+        .download-feature svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--blue);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(180deg, #1ab8e8 0%, #008ec4 50%, #006ea4 100%);
+            border: none;
+            border-top: 1.5px solid rgba(255, 255, 255, 0.62);
+            border-radius: 60px;
+            padding: 16px 32px;
+            box-shadow: 0 10px 28px rgba(0, 120, 180, 0.46), inset 0 1.5px 0 rgba(255, 255, 255, 0.52), inset 0 -2px 4px rgba(0, 0, 0, 0.12);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 38px rgba(0, 120, 180, 0.52), inset 0 1.5px 0 rgba(255, 255, 255, 0.52);
+        }
+
+        .btn-download svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .small-note {
+            font-size: 11px;
+            color: var(--text-soft);
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .download-container {
+                padding: 36px 20px;
+            }
+
+            .download-icon {
+                width: 64px;
+                height: 64px;
+            }
+
+            .download-icon svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .download-title {
+                font-size: 22px;
+            }
+
+            .btn-download {
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+
+            .download-feature {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+
         /* COMPARISON TABLE */
         .comp-sec {
             background: var(--card-bg);
@@ -1650,7 +1826,6 @@
             <p class="hero-sub">VPN нового поколения — чистый, быстрый, настоящий. Управляй прямо из Telegram.</p>
             <div class="hero-actions">
                 <a href="https://t.me/viistavpn_bot" class="btn-p">
-                    <!-- Иконка звезды -->
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right:6px;">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                     </svg>
@@ -1684,7 +1859,6 @@
         <div class="fg">
             <div class="fc">
                 <div class="fg-icon i-teal">
-                    <!-- Иконка щита -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                         <path d="M9 12l2 2 4-4"/>
@@ -1695,7 +1869,6 @@
             </div>
             <div class="fc">
                 <div class="fg-icon i-green">
-                    <!-- Иконка молнии -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                     </svg>
@@ -1705,7 +1878,6 @@
             </div>
             <div class="fc">
                 <div class="fg-icon i-sky">
-                    <!-- Иконка бота -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="7" width="18" height="13" rx="3"/>
                         <circle cx="12" cy="17" r="1"/>
@@ -1718,7 +1890,6 @@
             </div>
             <div class="fc">
                 <div class="fg-icon i-green">
-                    <!-- Иконка глобуса -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/>
                         <line x1="2" y1="12" x2="22" y2="12"/>
@@ -1730,7 +1901,6 @@
             </div>
             <div class="fc">
                 <div class="fg-icon i-sky">
-                    <!-- Иконка смартфона -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
                         <line x1="12" y1="18" x2="12.01" y2="18"/>
@@ -1741,7 +1911,6 @@
             </div>
             <div class="fc">
                 <div class="fg-icon i-teal">
-                    <!-- Иконка замка -->
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -1753,8 +1922,35 @@
         </div>
     </section>
 
-   
-   
+    <!-- DOWNLOAD APP SECTION (НОВЫЙ БЛОК) -->
+    <section id="download" class="download-sec">
+        <div class="download-container">
+            <div class="download-header">
+                <div class="download-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"/>
+                        <line x1="12" y1="18" x2="12.01" y2="18"/>
+                        <polyline points="8 8 12 12 16 8"/>
+                        <line x1="12" y1="12" x2="12" y2="3"/>
+                    </svg>
+                </div>
+                <div class="download-title">
+                    Установите <span>Vista VPN</span> на Android
+                </div>
+                <div class="download-desc">
+                    Скачайте официальное приложение для быстрого доступа к VPN.
+                </div>
+            </div>
+            <a href="https://github.com/vista-vpn/vista-vpn.github.io/raw/refs/heads/main/app/VistaVPN.apk" class="btn-download" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/>
+                        <path d="M12 2v12m-4-4 4 4 4-4"/>
+                    </svg>
+                Скачать APK файл
+            </a>
+            
+        </div>
+    </section>
 
     <!-- PRICING -->
     <section id="pricing" class="pr-sec">
@@ -1776,7 +1972,6 @@
                 <ul class="pfl">
                     <li>
                         <div class="cg">
-                            <!-- Иконка галочки -->
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"/>
                             </svg>
@@ -1784,7 +1979,6 @@
                     </li>
                     <li>
                         <div class="cg">
-                            <!-- Иконка галочки -->
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"/>
                             </svg>
@@ -1792,7 +1986,6 @@
                     </li>
                     <li>
                         <div class="cg">
-                            <!-- Иконка галочки -->
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"/>
                             </svg>
@@ -1800,7 +1993,6 @@
                     </li>
                     <li>
                         <div class="cg">
-                            <!-- Иконка галочки -->
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"/>
                             </svg>
@@ -1808,7 +2000,6 @@
                     </li>
                     <li>
                         <div class="cg">
-                            <!-- Иконка галочки -->
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"/>
                             </svg>
@@ -1816,7 +2007,6 @@
                     </li>
                 </ul>
                 <button class="btn-pay" onclick="openPay('1 Месяц','70')">
-                    <!-- Иконка карты -->
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:8px;">
                         <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
                         <line x1="1" y1="10" x2="23" y2="10"/>
@@ -1826,8 +2016,6 @@
             </div>
         </div>
     </section>
-
-    
 
     <!-- FAQ -->
     <section id="faq" class="faq-sec">
@@ -1840,7 +2028,6 @@
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>
-                        <!-- Иконка денег -->
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:8px;">
                             <line x1="12" y1="1" x2="12" y2="23"/>
                             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -1854,15 +2041,13 @@
                     </div>
                 </div>
                 <div class="faq-answer">
-                    Оплата происходит через Telegram-бота @viistavpn_bot. После оплаты, администратор проверит её, и вышлет вам
-                    конфиг для подключения.
+                    Оплата происходит через Telegram-бота @viistavpn_bot. После оплаты, администратор проверит её, и вышлет вам конфиг для подключения.
                 </div>
             </div>
             
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>
-                        <!-- Иконка скорости -->
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:8px;">
                             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                         </svg>
@@ -1881,7 +2066,6 @@
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>
-                        <!-- Иконка устройств -->
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:8px;">
                             <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
                             <line x1="12" y1="18" x2="12.01" y2="18"/>
@@ -1901,7 +2085,6 @@
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>
-                        <!-- Иконка щита -->
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:8px;">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                             <path d="M9 12l2 2 4-4"/>
@@ -1921,7 +2104,6 @@
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     <span>
-                        <!-- Иконка плей -->
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:8px;">
                             <polygon points="5 3 19 12 5 21 5 3"/>
                         </svg>
@@ -1957,7 +2139,6 @@
                 <div style="text-align:center;margin-bottom:28px">
                     <div
                         style="width:60px;height:60px;border-radius:16px;background:linear-gradient(145deg,#82ecfc,#00b8dc,#0079b0);border:2px solid rgba(255,255,255,0.85);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;">
-                        <!-- Иконка ключа -->
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
                         </svg>
@@ -1991,7 +2172,6 @@
                     </div>
                 </div>
                 <a href="https://t.me/viistavpn_bot?start=login" target="_blank" class="tgbtn">
-                    <!-- Иконка телеграм -->
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block; vertical-align:middle; margin-right:8px;">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.66-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.41-.88.03-.24.37-.49 1.02-.74 3.98-1.73 6.63-2.87 7.96-3.42 3.79-1.58 4.58-1.85 5.09-1.86.11 0 .37.03.54.17.14.12.18.28.2.45-.01.09.01.19 0 .3z"/>
                     </svg>
@@ -2001,7 +2181,6 @@
             <div id="auth-step2" style="display:none">
                 <div style="text-align:center;margin-bottom:28px">
                     <div style="font-size:44px;margin-bottom:14px">
-                        <!-- Иконка ключа -->
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
                         </svg>
@@ -2027,7 +2206,6 @@
             </div>
             <div id="auth-step3" style="display:none;text-align:center;padding:16px 0">
                 <div style="font-size:52px;margin-bottom:16px">
-                    <!-- Иконка волны -->
                     <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M2 12c1.5-3 4-5 7-5s5.5 2 7 5c1.5 3 4 5 7 5"/>
                         <path d="M2 12c1.5 3 4 5 7 5s5.5-2 7-5c1.5-3 4-5 7-5"/>
@@ -2059,7 +2237,6 @@
                 <div class="pibp" id="ppp">70₽</div>
             </div>
             <div class="yknote">
-                <!-- Иконка замка -->
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
