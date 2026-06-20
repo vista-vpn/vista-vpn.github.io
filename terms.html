@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta name="enot" content="e8a3edbf" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Политика и условия - Vista VPN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --sky1: #a8d8f0;
+            --teal: #00b4d8;
+            --teal2: #48cae4;
+            --green: #52b788;
+            --blue: #0077b6;
+            --blue2: #023e8a;
+            --glass: rgba(255, 255, 255, 0.38);
+            --glass-border: rgba(255, 255, 255, 0.75);
+            --text-dark: #0a1628;
+            --text-mid: #1a3a5c;
+            --text-soft: #4a7a9b;
+            --shadow: rgba(0, 100, 180, 0.15);
+            --bg-gradient-1: #cceeff;
+            --bg-gradient-2: #d8f4ff;
+            --bg-gradient-3: #a0ccdf;
+            --bg-gradient-4: #c8eaf8;
+            --bg-gradient-5: #a4cee0;
+            --bg-gradient-6: #82b8d0;
+            --bg-gradient-7: #60a2be;
+            --card-bg: rgba(255, 255, 255, 0.48);
+            --card-border: rgba(255, 255, 255, 0.82);
+            --nav-bg: rgba(255, 255, 255, 0.42);
+            --footer-bg: rgba(255, 255, 255, 0.32);
+            --modal-bg: rgba(255, 255, 255, 0.72);
+            --input-bg: rgba(255, 255, 255, 0.62);
+            --btn-g-bg: rgba(255, 255, 255, 0.52);
+            --btn-g-hover: rgba(255, 255, 255, 0.72);
+            --hero-pill-bg: rgba(255, 255, 255, 0.58);
+            --stat-bg: rgba(255, 255, 255, 0.42);
+            --divider-color: rgba(255, 255, 255, 0.75);
+            --shadow-color: rgba(0, 100, 180, 0.1);
+            --active-highlight: rgba(0, 180, 216, 0.18);
+            --active-text: #0098c8;
+        }
+
+        [data-theme="dark"] {
+            --sky1: #1a2a3a;
+            --teal: #00d4ff;
+            --teal2: #80e0ff;
+            --green: #6abf69;
+            --blue: #48cae4;
+            --blue2: #90e0ef;
+            --glass: rgba(0, 0, 0, 0.38);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --text-dark: #e8f0fe;
+            --text-mid: #c0d0e0;
+            --text-soft: #90a8b8;
+            --shadow: rgba(0, 0, 0, 0.25);
+            --bg-gradient-1: #0f1a24;
+            --bg-gradient-2: #0d1720;
+            --bg-gradient-3: #0a121a;
+            --bg-gradient-4: #0b1720;
+            --bg-gradient-5: #0e1c28;
+            --bg-gradient-6: #0a1520;
+            --bg-gradient-7: #071018;
+            --card-bg: rgba(20, 30, 45, 0.6);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --nav-bg: rgba(10, 20, 30, 0.5);
+            --footer-bg: rgba(10, 20, 30, 0.4);
+            --modal-bg: rgba(20, 30, 45, 0.85);
+            --input-bg: rgba(30, 45, 60, 0.7);
+            --btn-g-bg: rgba(30, 45, 60, 0.6);
+            --btn-g-hover: rgba(50, 70, 90, 0.7);
+            --hero-pill-bg: rgba(30, 45, 60, 0.5);
+            --stat-bg: rgba(20, 35, 50, 0.5);
+            --divider-color: rgba(255, 255, 255, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --active-highlight: rgba(0, 212, 255, 0.25);
+            --active-text: #00d4ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ОТСТУП: меняй это значение чтобы двигать все секции (больше = ниже) */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 120px;
+        }
+
+        * {
+            transition: background-color 0.3s ease, background 0.3s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, backdrop-filter 0.2s ease;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-gradient-4);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .page-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: radial-gradient(ellipse 80% 60% at 15% 5%, var(--bg-gradient-1) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 70% at 85% 0%, var(--bg-gradient-2) 0%, transparent 55%),
+                radial-gradient(ellipse 90% 60% at 50% 100%, var(--bg-gradient-3) 0%, transparent 55%),
+                linear-gradient(175deg, var(--bg-gradient-4) 0%, var(--bg-gradient-5) 35%, var(--bg-gradient-6) 65%, var(--bg-gradient-7) 100%);
+        }
+
+        .bk {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bk1 {
+            width: 450px;
+            height: 450px;
+            top: -120px;
+            left: -150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.38) 0%, transparent 70%);
+            animation: bf 14s ease-in-out infinite;
+        }
+
+        .bk2 {
+            width: 320px;
+            height: 320px;
+            top: 25%;
+            right: -80px;
+            background: radial-gradient(circle, rgba(0, 210, 240, 0.18) 0%, transparent 70%);
+            animation: bf 10s ease-in-out infinite 2s reverse;
+        }
+
+        .bk3 {
+            width: 520px;
+            height: 280px;
+            bottom: 5%;
+            left: 15%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, transparent 70%);
+            animation: bf 17s ease-in-out infinite 1s;
+        }
+
+        .bk4 {
+            width: 200px;
+            height: 200px;
+            top: 55%;
+            right: 25%;
+            background: radial-gradient(circle, rgba(80, 210, 180, 0.18) 0%, transparent 70%);
+            animation: bf 12s ease-in-out infinite 3s;
+        }
+
+        [data-theme="dark"] .bk1 {
+            background: radial-gradient(circle, rgba(0, 100, 150, 0.3) 0%, transparent 70%);
+        }
+
+        [data-theme="dark"] .bk2 {
+            background: radial-gradient(circle, rgba(0, 180, 200, 0.15) 0%, transparent 70%);
+        }
+
+        [data-theme="dark"] .bk3 {
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+        }
+
+        [data-theme="dark"] .bk4 {
+            background: radial-gradient(circle, rgba(0, 200, 150, 0.12) 0%, transparent 70%);
+        }
+
+        @keyframes bf {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(25px, -35px) scale(1.06);
+            }
+
+            66% {
+                transform: translate(-18px, 22px) scale(0.96);
+            }
+        }
+
+        .cursor,
+        .cursor-ring {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s;
+        }
+
+        .cursor-ring {
+            width: 32px;
+            height: 32px;
+            border: 1.5px solid rgba(255, 255, 255, 0.75);
+            transition: all 0.1s;
+            z-index: 9998;
+            background: transparent;
+        }
+
+        @media (max-width: 768px) {
+
+            .cursor,
+            .cursor-ring {
+                display: none;
+            }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            padding: 12px 24px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px) saturate(200%);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 2px 20px var(--shadow-color), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            text-decoration: none;
+        }
+
+        .logo-gem {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #5dd4f4 0%, #00a8cc 45%, #0077a8 100%);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 0 4px 14px var(--shadow-color), inset 0 1.5px 0 rgba(255, 255, 255, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-gem::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            right: 8px;
+            height: 38%;
+            background: rgba(255, 255, 255, 0.42);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .logo-gem svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -0.3px;
+            color: var(--text-dark);
+        }
+
+        .logo-text em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: none;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(210, 240, 255, 0.85) 100%);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 0 2px 8px var(--shadow-color), inset 0 1px 0 white;
+            color: var(--blue);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px var(--shadow-color), inset 0 1px 0 white;
+        }
+
+        [data-theme="dark"] .nav-btn {
+            background: linear-gradient(180deg, rgba(50, 70, 100, 0.95) 0%, rgba(30, 50, 80, 0.85) 100%);
+            color: var(--teal);
+        }
+
+        .theme-toggle {
+            background: var(--btn-g-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 40px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            margin-left: 12px;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            background: var(--btn-g-hover);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(15deg);
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon,
+        .theme-toggle .moon-icon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .moon-icon {
+            display: block;
+        }
+
+        .theme-toggle .sun-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        .legal-container {
+            max-width: 1100px;
+            margin: 130px auto 60px;
+            padding: 0 24px;
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .legal-sidebar {
+            background: var(--card-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 110px;
+            width: 260px;
+            flex-shrink: 0;
+            box-shadow: 0 8px 24px var(--shadow-color), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .legal-sidebar h4 {
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 18px;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legal-sidebar h4 svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--blue);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .legal-sidebar ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .legal-sidebar a {
+            display: block;
+            padding: 11px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-soft);
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .legal-sidebar a:hover {
+            background: var(--active-highlight);
+            color: var(--active-text);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .legal-sidebar a.active {
+            background: var(--active-highlight);
+            color: var(--active-text);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            border-left: 3px solid var(--teal);
+        }
+
+        .legal-content {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 44px 40px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 12px 32px var(--shadow-color), inset 0 1.5px 0 rgba(255, 255, 255, 0.1);
+            min-height: 500px;
+        }
+
+        .legal-content h1 {
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+
+        .legal-content h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--blue);
+            margin: 30px 0 14px;
+            letter-spacing: -0.5px;
+            padding-top: 8px;
+        }
+
+        .legal-content p,
+        .legal-content li {
+            font-size: 15px;
+            color: var(--text-mid);
+            line-height: 1.75;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .legal-content ul {
+            padding-left: 22px;
+            margin-bottom: 16px;
+        }
+
+        .legal-content a {
+            color: var(--teal);
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .legal-content a:hover {
+            text-decoration: underline;
+        }
+
+        .page-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .page-tab {
+            padding: 10px 22px;
+            border-radius: 40px;
+            border: 1.5px solid var(--glass-border);
+            background: var(--btn-g-bg);
+            backdrop-filter: blur(12px);
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: all 0.25s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .page-tab svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .page-tab:hover {
+            background: var(--btn-g-hover);
+            transform: translateY(-1px);
+        }
+
+        .page-tab.active {
+            background: linear-gradient(135deg, #00a8d8, #00c8f0);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 16px rgba(0, 160, 216, 0.4);
+        }
+
+        #terms-page,
+        #privacy-page {
+            display: none;
+        }
+
+        #terms-page.active,
+        #privacy-page.active {
+            display: block;
+        }
+
+        .mobile-sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 92px;
+            left: 16px;
+            z-index: 300;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, #00a8d8, #0088b8);
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 6px 20px rgba(0, 160, 216, 0.35);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-sidebar-toggle svg {
+            width: 22px;
+            height: 22px;
+            stroke: white;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 400;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            transition: background 0.3s ease, backdrop-filter 0.3s ease;
+            pointer-events: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+        }
+
+        .mobile-sidebar {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 500;
+            background: var(--modal-bg);
+            border-right: 2px solid var(--glass-border);
+            width: 280px;
+            height: 100vh;
+            max-height: 100vh;
+            overflow-y: auto;
+            padding: 100px 20px 30px;
+            backdrop-filter: blur(34px) saturate(200%);
+            box-shadow: 8px 0 40px var(--shadow-color);
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-sidebar.active {
+            transform: translateX(0);
+        }
+
+        .mobile-sidebar h4 {
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mobile-sidebar h4 svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--blue);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .mobile-sidebar ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-sidebar a {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-soft);
+            text-decoration: none;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .mobile-sidebar a:hover {
+            background: var(--active-highlight);
+            color: var(--active-text);
+        }
+
+        .mobile-sidebar a.active {
+            background: var(--active-highlight);
+            color: var(--active-text);
+            border-left: 3px solid var(--teal);
+        }
+
+        footer {
+            padding: 28px 24px;
+            background: var(--footer-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1.5px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .fb {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--text-dark);
+        }
+
+        .fb em {
+            font-style: normal;
+            color: var(--blue);
+        }
+
+        .fc2 {
+            font-size: 12px;
+            color: var(--text-soft);
+            font-weight: 700;
+        }
+
+        @media (max-width: 900px) {
+            .legal-container {
+                flex-direction: column;
+                margin-top: 110px;
+            }
+
+            .legal-sidebar {
+                display: none;
+            }
+
+            .mobile-sidebar-toggle {
+                display: flex;
+            }
+
+            .legal-content {
+                padding: 28px 22px;
+            }
+
+            .legal-content h1 {
+                font-size: 26px;
+            }
+
+            .legal-content h2 {
+                font-size: 18px;
+            }
+
+            nav {
+                padding: 10px 14px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                margin-left: 6px;
+            }
+        }
+
+        @media (min-width: 901px) {
+
+            .mobile-sidebar,
+            .mobile-sidebar-toggle,
+            .sidebar-overlay {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .legal-container {
+                padding: 0 12px;
+                margin-top: 100px;
+            }
+
+            .legal-content {
+                padding: 20px 16px;
+            }
+
+            .page-tab {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .mobile-sidebar-toggle {
+                top: 80px;
+                left: 10px;
+                width: 42px;
+                height: 42px;
+                border-radius: 12px;
+            }
+
+            .mobile-sidebar {
+                width: 260px;
+                padding: 90px 16px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-bg"></div>
+    <div class="bk bk1"></div>
+    <div class="bk bk2"></div>
+    <div class="bk bk3"></div>
+    <div class="bk bk4"></div>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <nav>
+        <a href="https://vista-vpn.github.io/" class="logo">
+            <img src="https://raw.githubusercontent.com/vista-vpn/vista-vpn.github.io/refs/heads/main/Resourses/biglogo.png" alt="Logo" style="height:48px;width:auto;border-radius:10px;">
+        </a>
+        <div class="nav-links">
+            <button class="nav-btn" onclick="window.location.href='/'">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    style="display:inline-block;vertical-align:middle;margin-right:5px;">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                На главную
+            </button>
+            <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <div class="legal-container">
+
+        <main class="legal-content">
+            <div class="page-tabs">
+                <button class="page-tab active" id="tab-terms" onclick="switchTab('terms')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    Условия использования
+                </button>
+                <button class="page-tab" id="tab-privacy" onclick="switchTab('privacy')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    Политика конфиденциальности
+                </button>
+            </div>
+
+            <div id="terms-page" class="active">
+                <h1>Условия использования</h1>
+
+                <section id="general">
+                    <h2>Общие положения</h2>
+                    <p>Vista VPN — это сервис, позволяющий подключаться к серверам других стран. Далее "Мы", "Нас",
+                        "Наш" и "Vista VPN" относятся к сервису Vista VPN. Используя этот веб-сайт, вы соглашаетесь
+                        соблюдать эти Условия использования.</p>
+                </section>
+
+                <section id="payments">
+                    <h2>Платежи</h2>
+                    <p>Все платежи производятся заранее. Сервис будет автоматически отменен, если пользователь не
+                        продлит свой аккаунт до даты истечения. После успешного платежа пользователь будет уведомлен в
+                        боте t.me/viistavpn_bot.</p>
+                </section>
+
+                <section id="subscriptions">
+                    <h2>Подписки</h2>
+                    <p>Подписки являются персональными и не могут использоваться несколькими людьми. Аккаунты могут быть
+                        прекращены в случае их совместного использования.</p>
+                </section>
+
+                <section id="logging">
+                    <h2>Логирование</h2>
+                    <p>Vista VPN не логирует никакую деятельность своих пользователей. Пожалуйста, ознакомьтесь с
+                        политикой конфиденциальности Vista VPN для расширенного заявления.</p>
+                </section>
+
+                <section id="privacy-section">
+                    <h2>Политика конфиденциальности</h2>
+                    <p>Политика конфиденциальности Vista VPN объясняет способ, которым Компания обрабатывает и защищает
+                        ваши персональные данные и конфиденциальность в связи с использованием вами Сервиса и просмотром
+                        веб-сайта vista-vpn.github.io/. Соглашаясь с настоящими Условиями и положениями и для
+                        возможности использования Сервиса, вы соглашаетесь с нашей Политикой конфиденциальности.</p>
+                </section>
+
+                <section id="illegal">
+                    <h2>Незаконная деятельность</h2>
+                    <p>Пользователи не могут использовать Vista VPN для совершения преступлений. В случае совершения
+                        преступления Vista VPN сохраняет полное право приостановить соответствующий аккаунт.</p>
+                </section>
+
+                <section id="liability">
+                    <h2>Ответственность</h2>
+                    <p>Vista VPN не несет ответственности за любой ущерб или потерю дохода, вызванные использованием
+                        наших услуг. Основная цель нашего сервиса — защитить вашу конфиденциальность. Мы абсолютно не
+                        одобряем и не поощряем преступную деятельность любого рода. Vista VPN не несет ответственности
+                        за неработающий сервис, если у Пользователя нерабочее интернет-соединение и/или проблемы с
+                        оборудованием или программным обеспечением. Vista VPN не может нести ответственность за любую
+                        потерю сервиса из-за внешних повреждений или перерывов.</p>
+                </section>
+
+                <section id="changes">
+                    <h2>Изменения</h2>
+                    <p>Мы не уведомляем пользователей о незначительных изменениях в этих Условиях. Если будут внесены
+                        значительные изменения, мы уведомим всех пользователей в боте t.me/viistavpn_bot.</p>
+                </section>
+            </div>
+
+            <div id="privacy-page">
+                <h1>Политика конфиденциальности</h1>
+
+                <section id="collection">
+                    <h2>Сбор данных</h2>
+                    <p>Политика конфиденциальности Vista VPN объясняет способ, которым Компания обрабатывает и защищает
+                        ваши персональные данные и конфиденциальность в связи с использованием вами Сервиса и просмотром
+                        веб-сайта vista-vpn.github.io/.</p>
+                </section>
+
+                <section id="usage">
+                    <h2>Использование данных</h2>
+                    <p>Политика конфиденциальности Vista VPN объясняет способ, которым Компания обрабатывает и защищает
+                        ваши персональные данные и конфиденциальность в связи с использованием вами Сервиса и просмотром
+                        веб-сайта vista-vpn.github.io/. Соглашаясь с настоящими Условиями и положениями и для
+                        возможности использования Сервиса, вы соглашаетесь с нашей Политикой конфиденциальности.</p>
+                </section>
+
+                <section id="sharing">
+                    <h2>Передача третьим лицам</h2>
+                    <p>Политика конфиденциальности Vista VPN объясняет способ, которым Компания обрабатывает и защищает
+                        ваши персональные данные и конфиденциальность в связи с использованием вами Сервиса и просмотром
+                        веб-сайта vista-vpn.github.io/.</p>
+                </section>
+
+                <section id="security">
+                    <h2>Защита данных</h2>
+                    <p>Политика конфиденциальности Vista VPN объясняет способ, которым Компания обрабатывает и защищает
+                        ваши персональные данные и конфиденциальность в связи с использованием вами Сервиса и просмотром
+                        веб-сайта vista-vpn.github.io/.</p>
+                </section>
+
+                <section id="rights">
+                    <h2>Ваши права</h2>
+                    <p>Политика конфиденциальности Vista VPN объясняет способ, которым Компания обрабатывает и защищает
+                        ваши персональные данные и конфиденциальность в связи с использованием вами Сервиса и просмотром
+                        веб-сайта vista-vpn.github.io/.</p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+   
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+
+    <footer>
+        <div class="fb">Vista <em>VPN</em></div>
+        <div class="fc2">© 2026 Vista VPN · Все права защищены</div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+        const cur = document.getElementById('cursor'), ring = document.getElementById('cursorRing');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        if (cur && ring) {
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; });
+            (function loop() { rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop); })();
+        }
+
+        function switchTab(tab) {
+            const termsPage = document.getElementById('terms-page');
+            const privacyPage = document.getElementById('privacy-page');
+            const tabTerms = document.getElementById('tab-terms');
+            const tabPrivacy = document.getElementById('tab-privacy');
+            const sidebarTerms = document.getElementById('sidebar-terms');
+            const sidebarPrivacy = document.getElementById('sidebar-privacy');
+
+            if (tab === 'terms') {
+                termsPage.classList.add('active');
+                privacyPage.classList.remove('active');
+                tabTerms.classList.add('active');
+                tabPrivacy.classList.remove('active');
+                sidebarTerms.style.display = '';
+                sidebarPrivacy.style.display = 'none';
+                sidebarTerms.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+                sidebarTerms.querySelector('.side-link[data-section="general"]').classList.add('active');
+            } else {
+                termsPage.classList.remove('active');
+                privacyPage.classList.add('active');
+                tabTerms.classList.remove('active');
+                tabPrivacy.classList.add('active');
+                sidebarTerms.style.display = 'none';
+                sidebarPrivacy.style.display = '';
+                sidebarPrivacy.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+                sidebarPrivacy.querySelector('.side-link[data-section="collection"]').classList.add('active');
+            }
+
+            document.querySelector('.legal-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            /* ОТСТУП: меняй это значение при переключении вкладок (больше = ниже) */
+            window.scrollBy(0, 20);
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+            /* ОТСТУП: меняй это значение при клике по боковому меню (больше = ниже) */
+            const yOffset = 30;
+            const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.side-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                scrollToSection(sectionId);
+                const sidebar = this.closest('.legal-sidebar');
+                sidebar.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.side-link-mobile').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                const mobileSidebar = this.closest('.mobile-sidebar');
+                mobileSidebar.querySelectorAll('.side-link-mobile').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                setTimeout(() => {
+                    scrollToSection(sectionId);
+                }, 300);
+            });
+        });
+
+        window.addEventListener('scroll', function () {
+            const activePage = document.querySelector('#terms-page.active, #privacy-page.active');
+            if (!activePage) return;
+            const sidebar = activePage.id === 'terms-page'
+                ? document.getElementById('sidebar-terms')
+                : document.getElementById('sidebar-privacy');
+            const sections = activePage.querySelectorAll('section');
+            let currentSection = '';
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 200) currentSection = section.getAttribute('id');
+            });
+            if (currentSection && sidebar) {
+                sidebar.querySelectorAll('.side-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === currentSection) link.classList.add('active');
+                });
+            }
+        });
+
+        function toggleMobileSidebar() {
+            const overlay = document.getElementById('sidebarOverlay');
+            const activePage = document.querySelector('#terms-page.active') ? 'terms' : 'privacy';
+            const sidebar = document.getElementById(activePage === 'terms' ? 'mobileSidebarTerms' : 'mobileSidebarPrivacy');
+            if (sidebar.classList.contains('active')) {
+                closeMobileSidebar();
+            } else {
+                overlay.classList.add('active');
+                sidebar.classList.add('active');
+            }
+        }
+
+        function closeMobileSidebar() {
+            document.getElementById('sidebarOverlay').classList.remove('active');
+            document.getElementById('mobileSidebarTerms').classList.remove('active');
+            document.getElementById('mobileSidebarPrivacy').classList.remove('active');
+        }
+
+        document.getElementById('sidebarOverlay').addEventListener('click', closeMobileSidebar);
+    </script>
+</body>
+
+</html>
